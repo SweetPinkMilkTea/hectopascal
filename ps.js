@@ -1,6 +1,7 @@
 let activeCount = 0; // Variable to track the number of active (toggled on) divs
 let MultScore = 100;
 let score = 0
+let timer = false
 
 const swIndicator = document.querySelector('.swindicator');
 
@@ -146,14 +147,20 @@ document.addEventListener('DOMContentLoaded', function () {
           document.getElementById('TimeSecs').innerHTML = secString;
           setTimeout(stopWatch, 1000);
           setScore();
+      } else {
+        return
       }
     }
 
     startB.addEventListener('click', function () {
-      console.log("Started");
-      timer = true;
-      swIndicator.style.backgroundColor = 'green'; 
-      stopWatch();
+      if (!timer) {
+        console.log("Started");
+        timer = true;
+        swIndicator.style.backgroundColor = 'green'; 
+        stopWatch();
+      } else {
+        return;
+      }
     });
   
     stopB.addEventListener('click', function () {
