@@ -51,6 +51,15 @@ document.addEventListener('DOMContentLoaded', function () {
       // Update the score display
       console.log(MultScore);
       document.querySelector('.modifiermultvalue').textContent =  `x${(MultScore / 100).toFixed(2)}`;
+      if (MultScore === 100) {
+        document.querySelector('.modifiermultvalue').style.color = 'white';
+      } else {
+        if (MultScore < 100) {
+          document.querySelector('.modifiermultvalue').style.color = "#ff5454";
+        } else { 
+          document.querySelector('.modifiermultvalue').style.color = "#56ff72";
+        }
+      }
     }
 
     // Function to disable incompatible mods
