@@ -1,0 +1,177 @@
+@font-face {
+    font-family: "Torus";
+    src: url(/font/Torus-Regular.otf) format("truetype");
+  }
+
+h1, h3, p, div, span, button, .mainheader{
+    font-family: "Torus";
+    color: white;
+}
+.mainheader {
+    width: 50%;
+    padding-bottom: 5px;
+    background-color: #00000000;
+    border: 1px solid #00000000;
+    border-bottom: 1px solid #fff;
+    text-align: center;
+    font-size: x-large;
+    font-weight: bold;
+    margin: 10px 25% 10px 25%;
+}
+.headerbox {
+    display: flex;
+    width: auto;
+    height: 80px;
+    align-items: center;
+    justify-content: center;
+    margin: 10px
+}
+.headerbox > * {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.subdiv > p {
+    margin-top: 7px;
+    font-style: italic;
+    color: rgb(255, 255, 255, 0.5);
+}
+.divider {
+    background-color: white;
+    width: 1px;
+    height: 40px;
+}
+body {
+    background: black;
+}
+.cont {
+    margin: auto;
+    margin-top: 5%;
+    border-radius: 10px;
+    border: 1px solid white;
+    background-color: rgb(29, 29, 29);
+    max-width: 700px;
+}
+.cont > p, h3 {
+    text-align: center;
+}
+.crossout {
+    text-decoration: line-through;
+}
+.modicon {
+    width: 50px;
+    opacity: 0.33;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+.modicon.toggled-on {
+    opacity: 1;
+  }
+#modrow {
+    display: flex;
+    flex-direction: column; 
+    height: max-content;
+}
+#modrow > * {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.moddesc {
+    line-height: 40px;
+    text-align: center;
+    padding-right: 10px;
+    color: gray;
+}
+/* TOOLTIP */
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: max-content;
+    max-width: 250px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 5px;
+    border: 1px dashed #ffffff55;
+    padding: 30px;
+
+     /* Center the text using flexbox */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Position the tooltip above the image */
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;  /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%);
+
+    /* Tooltip arrow (optional) */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    display: flex;
+    flex-direction: column; 
+    opacity: 1;
+}
+.modsubtext {
+    margin-top: 10px;
+    color: rgb(73, 73, 73);
+}
+.modtitle {
+    color:#000000;
+    background-color: #fff;
+    padding: 3px 7px 3px 7px;
+    margin-bottom: 15px;
+    border-radius: 99px;
+    font-weight: bold;
+}
+/* Mod Variable */
+.modifiermult {
+    width: 200px;
+    background-color: rgb(54, 54, 54);
+    display: flex;
+    clip-path: polygon(12.5% 0, 100% 0%, 87.5% 100%, 0% 100%);
+    text-align: center;
+    height: 50px;
+    margin: 25px;
+}
+.modifiermultdesc {
+    width: 50%;
+    background-color: white;
+    clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modifiermultdesc > span {
+    color: black;
+}
+.modifiermultvalue {
+    padding-right: 20px;
+    margin: auto;
+    width: max-content;
+}
+button {
+    width: 150px;
+    height: 50px;
+    cursor: pointer;
+    border: none;
+    clip-path: polygon(17.5% 0%, 100% 0%, 82.5% 100%, 0% 100%);
+    background-color: rgb(54, 54, 54);
+}
+.swindicator {
+    width: 15px;
+    height: 15px;
+    background-color: gray;
+    border-radius: 99px;
+    cursor: pointer;
+}

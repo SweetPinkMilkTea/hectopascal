@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Pressue Run Scorer</title>
+        <link rel="stylesheet" href="ps.css">
+    </head>
+    <body>
+        <div class="cont">
+            <input class="mainheader" placeholder="Type something here...">
+            <div class="headerbox">
+                <div class="subdiv">
+                    <h1 id="scoredisplay">-,---,---</h1>
+                </div>
+                <div class="divider"></div>
+                <p>Time: <br><span id="TimeMins">--</span> min <span id="TimeSecs">--</span> secs</p>
+                <span class="swindicator"></span>
+            </div>
+        </div>
+        <div class="cont">
+            <h3>Stopwatch Controls</h3>
+            <div class="headerbox">
+                <button id="swstart">Start</button>
+                <button id="swstop">Stop</button>
+                <button id="swreset">Reset</button>
+            </div>
+            <p class="modsubtext"><small>Time inaccurate? Click the stopwatch indicator to manually set your time.</small></p>
+        </div>
+        <div class="cont">
+            <h3>Modifier Select</h3>
+            <div class="headerbox" id="modrow">
+                <div>
+                    <span class="moddesc">Difficulty Increase</span>
+                    <div class="tooltip">
+                        <img src="/mods/LightsOut.png" class="modicon" data-id="1" data-score="3" data-active="false" data-incompatible="[2]">
+                        <div class="tooltiptext">
+                            <span class="modtitle">Sensory Underload</span>
+                            <span>Don't pick up any light sources.</span>
+                            <span class="modsubtext">Mult + 0.03</span>
+                        </div>
+                    </div>
+                    <div class="tooltip">
+                        <img src="/mods/NothingAllowed.png" class="modicon" data-id="2" data-score="5" data-active="false" data-incompatible="[1]">
+                        <div class="tooltiptext">
+                            <span class="modtitle">Bargainless</span>
+                            <span>Don't pick up any items - except Keycards.</span>
+                            <span class="modsubtext">Mult + 0.05</span>
+                        </div>
+                    </div>
+                    <div class="tooltip">
+                        <img src="/mods/Perfect.png" class="modicon" data-id="3" data-score="1" data-active="false" data-incompatible="[9,18]">
+                        <div class="tooltiptext">
+                            <span class="modtitle">Perfect</span>
+                            <span>Stay at 100 HP at all times.</span>
+                            <span class="modsubtext">Mult + 0.01</span>
+                        </div>
+                    </div>
+                    <div class="tooltip">
+                        <img src="/mods/NoHiding.png" class="modicon" data-id="4" data-score="10" data-active="false">
+                        <div class="tooltiptext">
+                            <span class="modtitle">Cleithrophobia-phobia</span>
+                            <span>Don't use lockers. At all.</span>
+                            <span class="modsubtext">Mult + 0.1</span>
+                        </div>
+                    </div>
+                    <div class="tooltip">
+                        <img src="/mods/NoSafety.png" class="modicon" data-id="5" data-score="5" data-active="false">
+                        <div class="tooltiptext">
+                            <span class="modtitle">Safety Averse</span>
+                            <span>Never stray from the main path, unless there is a keycard to find.</span>
+                            <span class="modsubtext">Mult + 0.05</span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <span class="moddesc">Difficulty Increase EX</span>
+                    <div class="tooltip">
+                        <img src="/mods/Flashed.png" class="modicon" data-id="6" data-score="7" data-active="false">
+                    <div class="tooltiptext">
+                        <span class="modtitle">Anchored</span>
+                            <span>Double Flash the Eyefestation as soon as it's encountered.</span>
+                            <span class="modsubtext">Buying the beacon for this in the beginning doesn't affect SU, BL and PA.</span>
+                        <span class="modsubtext">Mult + 0.07</span>
+                    </div>
+                </div>
+                <div class="tooltip">
+                    <img src="/mods/Hyperactive.png" class="modicon" data-id="7" data-score="2" data-active="false">
+                    <div class="tooltiptext">
+                        <span class="modtitle">Hyperactive</span>
+                        <span>Never stop moving forward [= Holding W].<br>Crouching outside of unavoidable Obstacles is forbidden.</span>
+                        <span class="modsubtext">Mult + 0.02</span>
+                    </div>
+                </div>
+                <div class="tooltip">
+                    <img src="/mods/Target.png" class="modicon" data-id="8" data-score="4" data-active="false">
+                    <div class="tooltiptext">
+                        <span class="modtitle">Invisible</span>
+                        <span>Don't anger/get spotted by any avoidable mob, even if you don't take damage.</span>
+                        <span class="modsubtext">Mult + 0.02</span>
+                    </div>
+                </div>
+                <div class="tooltip">
+                    <img src="/mods/Silence.png" class="modicon" data-id="8" data-score="11" data-active="false">
+                    <div class="tooltiptext">
+                        <span class="modtitle">Abyssal Echoes</span>
+                        <span>Turn off all audio from the game. Do not use Deaf Mode!</span>
+                        <span class="modsubtext">Mult + 0.11</span>
+                    </div>
+                </div>
+                </div>
+                <div>
+                    <span class="moddesc">Difficulty Decrease</span>
+                    <div class="tooltip">
+                        <img src="/mods/SafetyNet.png" class="modicon" data-id="9" data-score="0" data-active="false" data-incompatible="[3]">
+                        <div class="tooltiptext">
+                            <span class="modtitle">Safety Net</span>
+                            <span>Applies when reviving.</span>
+                            <span class="modsubtext">Mult is halved</span>
+                        </div>
+                    </div>
+                    <div class="tooltip">
+                        <img src="/mods/ChillOut.png" class="modicon" data-id="10" data-score="-30" data-active="false">
+                        <div class="tooltiptext">
+                            <span class="modtitle">Premium Assistance</span>
+                            <span>Applies when buying Items, no matter where. Doesn't stack.</span>
+                            <span class="modsubtext">Mult - 0.3</span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <span class="moddesc">Multiplayer</span>
+                    <div class="tooltip">
+                        <img src="/mods/Two.png" class="modicon" data-id="11" data-score="2" data-active="false" data-incompatible="[12,13,14,15,16,17]">
+                        <div class="tooltiptext">
+                            <span class="modtitle">2P</span>
+                            <span>Playing with 2 players in total.</span>
+                            <span class="modsubtext"><br>Easy Mods count already for one player.<br>Hard Mods count only for all players.</span>
+                            <span class="modsubtext">Mult + 0.02</span>
+                        </div>
+                    </div>
+                    <div class="tooltip">
+                        <img src="/mods/Three.png" class="modicon" data-id="12" data-score="4" data-active="false" data-incompatible="[11,13,14,15,16,17]">
+                        <div class="tooltiptext">
+                            <span class="modtitle">3P</span>
+                            <span>Playing with 3 players in total.</span>
+                            <span class="modsubtext"><br>Easy Mods count already for one player.<br>Hard Mods count only for all players.</span>
+                            <span class="modsubtext">Mult + 0.04</span>
+                        </div>
+                    </div>
+                    <div class="tooltip">
+                        <img src="/mods/Four.png" class="modicon" data-id="13" data-score="6" data-active="false" data-incompatible="[11,12,14,15,16,17]">
+                        <div class="tooltiptext">
+                            <span class="modtitle">4P</span>
+                            <span>Playing with 4 players in total.</span>
+                            <span class="modsubtext"><br>Easy Mods count already for one player.<br>Hard Mods count only for all players.</span>
+                            <span class="modsubtext">Mult + 0.06</span>
+                        </div>
+                    </div>
+                    <div class="tooltip">
+                        <img src="/mods/Five.png" class="modicon" data-id="14" data-score="8" data-active="false" data-incompatible="[11,12,13,15,16,17]">
+                        <div class="tooltiptext">
+                            <span class="modtitle">5P</span>
+                            <span>Playing with 5 players in total.</span>
+                            <span class="modsubtext"><br>Easy Mods count already for one player.<br>Hard Mods count only for all players.</span>
+                            <span class="modsubtext">Mult + 0.08</span>
+                        </div>
+                    </div>
+                    <div class="tooltip">
+                        <img src="/mods/Six.png" class="modicon" data-id="15" data-score="10" data-active="false" data-incompatible="[11,12,13,14,16,17]">
+                        <div class="tooltiptext">
+                            <span class="modtitle">6P</span>
+                            <span>Playing with 6 players in total.</span>
+                            <span class="modsubtext"><br>Easy Mods count already for one player.<br>Hard Mods count only for all players.</span>
+                            <span class="modsubtext">Mult + 0.10</span>
+                        </div>
+                    </div>
+                    <div class="tooltip">
+                        <img src="/mods/Seven.png" class="modicon" data-id="16" data-score="12" data-active="false" data-incompatible="[11,12,13,14,15,17]">
+                        <div class="tooltiptext">
+                            <span class="modtitle">7P</span>
+                            <span>Playing with 7 players in total.</span>
+                            <span class="modsubtext"><br>Easy Mods count already for one player.<br>Hard Mods count only for all players.</span>
+                            <span class="modsubtext">Mult + 0.12</span>
+                        </div>
+                    </div>
+                    <div class="tooltip">
+                        <img src="/mods/HighMult.png" class="modicon" data-id="17" data-score="14" data-active="false" data-incompatible="[11,12,13,14,15,16]">
+                        <div class="tooltiptext">
+                            <span class="modtitle">ExtraP</span>
+                            <span>Playing with 8 or more players in total.</span>
+                            <span class="modsubtext"><br>Easy Mods count already for one player.<br>Hard Mods count only for all players.</span>
+                            <span class="modsubtext">Mult + 0.14</span>
+                        </div>
+                    </div>
+                    <div class="tooltip">
+                        <img src="/mods/Incomplete.png" class="modicon" data-id="18" data-score="0" data-active="false" data-incompatible="[3]">
+                        <div class="tooltiptext">
+                            <span class="modtitle">Broken Hearts</span>
+                            <span>Applies when at least 1 player is dead when finishing the run.</span>
+                            <span class="modsubtext">Mult is divided by 10 after all Mods are applied.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="headerbox">
+                <div class="modifiermult">
+                    <div class="modifiermultdesc"><span>Mult:</span></div>
+                    <span class="modifiermultvalue">x-,--</span>
+                </div>
+                <button class="resetbutton">Reset Mods</button>
+            </div>
+        </div>
+        <script src="ps.js"></script>
+    </body>
+</html>
