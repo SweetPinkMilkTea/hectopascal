@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
           document.querySelector('.modifiermultvalue').style.color = "#56ff72";
         }
       }
+      setScore()
     }
 
     // Function to disable incompatible mods
@@ -205,6 +206,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
             minute = Math.floor(newTime/60)
             second = newTime % 60
+
+            let minString = minute;
+            let secString = second;
+            let countString = count;
+    
+            if (minute < 10) {
+                minString = "0" + minString;
+            }
+    
+            if (second < 10) {
+                secString = "0" + secString;
+            }
+    
+            if (count < 10) {
+                countString = "0" + countString;
+            }
+    
+            document.getElementById('TimeMins').innerHTML = minString;
+            document.getElementById('TimeSecs').innerHTML = secString;
+
             setScore()
         });
     
