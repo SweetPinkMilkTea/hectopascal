@@ -56,16 +56,16 @@ body {
 }
 .activated-image {
     margin-right: 10px;
-  }
+}
 #displaymodscontainer {
     height: 40px;
 }
+.displaymods > * {
+    margin: 0px 7px 0px 7px;
+}
 .nomods {
     text-align: center;
-    padding: 3px 7px 3px 7px;
-    color: rgb(29, 29, 29);
-    background-color: rgb(83, 83, 83);
-    border-radius: 99px;
+    opacity: 1;
 }
 .modicon, .modiconclone {
     width: 50px;
