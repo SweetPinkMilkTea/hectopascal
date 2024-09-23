@@ -15,8 +15,38 @@ document.addEventListener('DOMContentLoaded', function () {
     let stopB = document.getElementById('swstop');
     let resetB = document.getElementById('swreset');
     document.querySelector('.modifiermultvalue').textContent = "x1.00";
+    const ActiveMods = document.querySelector('.displaymods');
+    const placeholder = document.querySelector('.nomods');
     MultScore = 100;
+    updateActivatedImages();
 
+    // Function to update the activated Mods inside of the Visualizer
+    function updateActivatedImages() {
+      // Get all active mods
+      const activeImages = document.querySelectorAll('.modicon[data-active="true"]');
+
+      // Clear the activated container
+      ActiveMods.innerHTML = '';
+
+      // If there are no active images, show the placeholder
+      if (activeImages.length === 0) {
+        placeholder.style.display = 'block';
+        ActiveMods.appendChild(placeholder);
+      } else {
+        placeholder.style.display = 'none'; // Hide the placeholder
+        // Loop through all active images and display them in the activated container
+        activeImages.forEach(activeImageDiv => {
+          const img = activeImageDiv.querySelector('img');
+          const clonedImg = activeImageDiv.cloneNode(true); // Clone the image to display in the activated container
+          clonedImg.classList.add('activated-image');
+          clonedImg.classList.remove('modicon');
+          clonedImg.classList.add('modiconclone');
+          ActiveMods.appendChild(clonedImg);
+        });
+      }
+    }
+
+    // Refreshing the score whenever Mult or Time updates
     function setScore() {
       if (minute * 60 + second < 7200) {
         score = Math.floor((0.0339506175 * ((minute * 60 + second - 7200) ** (2))) * (MultScore/100)).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
@@ -40,8 +70,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       );
       // Apply any special conditions after all the scores are calculated
-      const mod1 = document.querySelector('.modicon[data-id="9"]');
-      const mod2 = document.querySelector('.modicon[data-id="18"]');
+      const mod1 = document.querySelector('.modicon[data-id="10"]');
+      const mod2 = document.querySelector('.modicon[data-id="19"]');
       if (mod1.getAttribute('data-active') === 'true') {
         MultScore /= 2;
       }
@@ -60,7 +90,8 @@ document.addEventListener('DOMContentLoaded', function () {
           document.querySelector('.modifiermultvalue').style.color = "#56ff72";
         }
       }
-      setScore()
+      setScore();
+      updateActivatedImages();
     }
 
     // Function to disable incompatible mods
@@ -112,6 +143,7 @@ document.addEventListener('DOMContentLoaded', function () {
       div => {
         div.addEventListener('click', function () {
             const isActive = this.getAttribute('data-active') === 'true';
+            console.log(`Clicked, was ${isActive}`)
             if (isActive) {
               this.classList.remove('toggled-on'); // Remove toggled-on class
               this.setAttribute('data-active', 'false'); // Set as inactive

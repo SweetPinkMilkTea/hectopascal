@@ -2,17 +2,20 @@
     font-family: "Torus";
     src: url(font/Torus-Regular.otf) format("truetype");
   }
-
+/* Main Contents */
 h1, h3, p, div, span, button, .mainheader{
     font-family: "Torus";
     color: white;
+}
+body {
+    background: black;
 }
 .mainheader {
     width: 50%;
     padding-bottom: 5px;
     background-color: #00000000;
     border: 1px solid #00000000;
-    border-bottom: 1px solid #fff;
+    border-bottom: 1px solid #ffffff80;
     text-align: center;
     font-size: x-large;
     font-weight: bold;
@@ -40,9 +43,6 @@ h1, h3, p, div, span, button, .mainheader{
     width: 1px;
     height: 40px;
 }
-body {
-    background: black;
-}
 .cont {
     margin: auto;
     margin-top: 30px;
@@ -54,16 +54,26 @@ body {
 .cont > p, h3 {
     text-align: center;
 }
-.crossout {
-    text-decoration: line-through;
+.activated-image {
+    margin-right: 10px;
+  }
+#displaymodscontainer {
+    height: 40px;
 }
-.modicon {
+.nomods {
+    text-align: center;
+    padding: 3px 7px 3px 7px;
+    color: rgb(29, 29, 29);
+    background-color: rgb(83, 83, 83);
+    border-radius: 99px;
+}
+.modicon, .modiconclone {
     width: 50px;
     opacity: 0.33;
     cursor: pointer;
     transition: opacity 0.3s ease;
 }
-.modicon.toggled-on {
+.modicon.toggled-on, .modiconclone.toggled-on {
     opacity: 1;
   }
 #modrow {
