@@ -79,10 +79,12 @@ body {
     justify-content: center;
 }
 .moddesc {
-    line-height: 40px;
     text-align: center;
-    padding-right: 10px;
-    color: gray;
+    padding: 3px 7px 3px 7px;
+    margin-right: 2px;;
+    color: rgb(29, 29, 29);
+    background-color: rgb(83, 83, 83);
+    border-radius: 99px;
 }
 /* TOOLTIP */
 .tooltip {
