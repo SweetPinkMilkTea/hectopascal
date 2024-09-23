@@ -45,7 +45,7 @@ body {
 }
 .cont {
     margin: auto;
-    margin-top: 5%;
+    margin-top: 30px;
     border-radius: 10px;
     border: 1px solid white;
     background-color: rgb(29, 29, 29);
@@ -74,6 +74,7 @@ body {
 #modrow > * {
     height: 50px;
     display: flex;
+    gap: 5px;
     align-items: center;
     justify-content: center;
 }
@@ -87,6 +88,11 @@ body {
 .tooltip {
     position: relative;
     display: inline-block;
+    height: 40px;
+    transition: 0.2s cubic-bezier(0.157, 0.885, 0.32, 1.275);
+}
+.tooltip:hover {
+    height: 50px;
 }
 .tooltip .tooltiptext {
     visibility: hidden;
