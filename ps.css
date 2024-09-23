@@ -70,8 +70,10 @@ body {
 .modicon, .modiconclone {
     width: 50px;
     opacity: 0.33;
-    cursor: pointer;
     transition: opacity 0.3s ease;
+}
+.modicon {
+    cursor: pointer;
 }
 .modicon.toggled-on, .modiconclone.toggled-on {
     opacity: 1;
