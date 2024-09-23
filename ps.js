@@ -53,6 +53,10 @@ document.addEventListener('DOMContentLoaded', function () {
       } else {
         score = 0
       }
+      if (minute === 0 && second === 0) {
+        document.getElementById('scoredisplay').innerHTML = "-,---,---";
+        return;
+      }
       document.getElementById('scoredisplay').innerHTML = score;
     }
 
