@@ -53,6 +53,7 @@ body {
     border: 1px solid white;
     background-color: rgb(29, 29, 29);
     max-width: 700px;
+    transition: 0.2s cubic-bezier(0.157, 0.885, 0.32, 1.275);
 }
 .cont > p, h3 {
     text-align: center;

@@ -166,6 +166,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Stopwatch Main Function
     function stopWatch() {
       if (timer) {
+        document.getElementById('timeset').innerHTML = ""
+        document.getElementById('swstart').innerHTML = `<span class="modsubtext">Continue</span>`;
         let current = new Date();
         count = +current - +TimerStart;
 
@@ -177,15 +179,23 @@ document.addEventListener('DOMContentLoaded', function () {
         setTimeout(stopWatch, 5);
         setScore();
       } else {
+        document.getElementById('timeset').innerHTML = "<small>Time inaccurate? Click here to manually set your time.</small>"
+        if (count === 0) {
+          document.getElementById('swstart').innerHTML = "Start";
+        } else {
+          document.getElementById('swstart').innerHTML = `Continue`;
+        }
         return
       }
     }
 
     startB.addEventListener('click', function () {
       if (!timer) {
+        if (count === 0) {
+          TimerStart = new Date();
+        }
         console.log("Started");
         timer = true;
-        TimerStart = new Date();
         stopWatch();
       } else {
         return;
@@ -200,8 +210,12 @@ document.addEventListener('DOMContentLoaded', function () {
     resetB.addEventListener('click', function () {
         console.log("Reset");
         timer = false;
+        count = 0
         document.getElementById('TimeDisplay').innerHTML = "--:--.---";
         document.getElementById('scoredisplay').innerHTML = "-,---,---";
+        document.getElementById('swstart').innerHTML = "Start";
+        document.getElementById("swstart").style.display="inline"
+        document.getElementById("swstop").style.display="inline"
     });
 
     timecalib.addEventListener('click', function () {
@@ -222,7 +236,11 @@ document.addEventListener('DOMContentLoaded', function () {
             let ms = count % 1000;
             let s = Math.floor((count /  1000)) % 60;
             let m = Math.floor((count / 60000)) % 60;
+            console.log(m + "mins " + s + "secs " + ms + "ms");
             
+            document.getElementById("swstart").style.display="none"
+            document.getElementById("swstop").style.display="none"
+
             document.getElementById('TimeDisplay').innerHTML = m.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + s.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + ms.toLocaleString('en-US', {minimumIntegerDigits: 3, useGrouping:false});
 
             setScore()
