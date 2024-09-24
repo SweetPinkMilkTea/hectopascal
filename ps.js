@@ -3,11 +3,10 @@ let MultScore = 100;
 let score = 0
 let timer = false
 
-const swIndicator = document.querySelector('.swindicator');
+const timecalib = document.querySelector('#timeset');
 
-let minute = 0;
-let second = 0;
-let count = 0;
+let TimerStart = new Date();
+let count = 0
 
 document.addEventListener('DOMContentLoaded', function () {
     // Stopwatch Buttons
@@ -48,12 +47,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Refreshing the score whenever Mult or Time updates
     function setScore() {
-      if (minute * 60 + second < 7200) {
-        score = Math.floor((0.0339506175 * ((minute * 60 + second - 7200) ** (2))) * (MultScore/100)).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+      console.log(count/1000)
+      if ((count/1000) < 7200) {
+        score = Math.floor((0.0339506175 * ((count/1000-7200) ** (2))) * (MultScore/100)).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
       } else {
         score = 0
       }
-      if (minute === 0 && second === 0) {
+      if (count === 0) {
         document.getElementById('scoredisplay').innerHTML = "-,---,---";
         return;
       }
@@ -162,37 +162,20 @@ document.addEventListener('DOMContentLoaded', function () {
         );
       }
     );
-
+    
     // Stopwatch Main Function
     function stopWatch() {
       if (timer) {
-          second++;
-  
-          if (second == 60) {
-              minute++;
-              second = 0;
-          }
-  
-          let minString = minute;
-          let secString = second;
-          let countString = count;
-  
-          if (minute < 10) {
-              minString = "0" + minString;
-          }
-  
-          if (second < 10) {
-              secString = "0" + secString;
-          }
-  
-          if (count < 10) {
-              countString = "0" + countString;
-          }
-  
-          document.getElementById('TimeMins').innerHTML = minString;
-          document.getElementById('TimeSecs').innerHTML = secString;
-          setTimeout(stopWatch, 1000);
-          setScore();
+        let current = new Date();
+        count = +current - +TimerStart;
+
+        let ms = count % 1000;
+        let s = Math.floor((count /  1000)) % 60;
+        let m = Math.floor((count / 60000)) % 60;
+
+        document.getElementById('TimeDisplay').innerHTML = m.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + s.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + ms.toLocaleString('en-US', {minimumIntegerDigits: 3, useGrouping:false});
+        setTimeout(stopWatch, 5);
+        setScore();
       } else {
         return
       }
@@ -202,7 +185,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!timer) {
         console.log("Started");
         timer = true;
-        swIndicator.style.backgroundColor = 'green'; 
+        TimerStart = new Date();
         stopWatch();
       } else {
         return;
@@ -212,55 +195,35 @@ document.addEventListener('DOMContentLoaded', function () {
     stopB.addEventListener('click', function () {
       console.log("Stopped");
       timer = false;
-      swIndicator.style.backgroundColor = 'red';
     });
   
     resetB.addEventListener('click', function () {
         console.log("Reset");
         timer = false;
-        minute = 0;
-        second = 0;
-        count = 0;
-        document.getElementById('TimeMins').innerHTML = "00";
-        document.getElementById('TimeSecs').innerHTML = "00";
-        swIndicator.style.backgroundColor = 'gray';
+        document.getElementById('TimeDisplay').innerHTML = "--:--.---";
         document.getElementById('scoredisplay').innerHTML = "-,---,---";
     });
 
-    swIndicator.addEventListener('click', function () {
-            let userInput = prompt("Enter time in seconds:")
+    timecalib.addEventListener('click', function () {
+            let userInput = prompt("Enter time in milliseconds:")
             if (userInput === null) {
               console.log("Input cancelled");
               return;
             }
 
             let newTime = parseFloat(userInput);
-            if (isNaN(newTime)) {
+            if (isNaN(newTime) || newTime < 0) {
               alert("Invalid input. Please enter a valid number.");
               return;
             }
 
-            minute = Math.floor(newTime/60)
-            second = newTime % 60
-
-            let minString = minute;
-            let secString = second;
-            let countString = count;
-    
-            if (minute < 10) {
-                minString = "0" + minString;
-            }
-    
-            if (second < 10) {
-                secString = "0" + secString;
-            }
-    
-            if (count < 10) {
-                countString = "0" + countString;
-            }
-    
-            document.getElementById('TimeMins').innerHTML = minString;
-            document.getElementById('TimeSecs').innerHTML = secString;
+            count = newTime
+            
+            let ms = count % 1000;
+            let s = Math.floor((count /  1000)) % 60;
+            let m = Math.floor((count / 60000)) % 60;
+            
+            document.getElementById('TimeDisplay').innerHTML = m.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + s.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + ms.toLocaleString('en-US', {minimumIntegerDigits: 3, useGrouping:false});
 
             setScore()
         });

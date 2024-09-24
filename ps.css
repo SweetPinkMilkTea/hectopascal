@@ -30,18 +30,21 @@ body {
     margin: 10px
 }
 .headerbox > * {
-    margin-left: 10px;
-    margin-right: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
 }
-.subdiv > p {
-    margin-top: 7px;
-    font-style: italic;
-    color: rgb(255, 255, 255, 0.5);
+
+.subdiv{
+    width: 50%;
 }
-.divider {
-    background-color: white;
-    width: 1px;
-    height: 40px;
+.subdiv:first-child {
+    text-align: end;
+    border-right: 1px;
+    border-left: 0px;
+    border-top: 0px;
+    border-bottom: 0px;
+    border-image: linear-gradient(to bottom, #000000 0%, #ffffff 50%, #000000 100%) 1;
+    border-style: solid;
 }
 .cont {
     margin: auto;
@@ -59,6 +62,8 @@ body {
 }
 #displaymodscontainer {
     height: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 .displaymods > * {
     margin: 0px 7px 0px 7px;
@@ -166,6 +171,7 @@ body {
     text-align: center;
     height: 50px;
     margin: 25px;
+    padding: 0px;
 }
 .modifiermultdesc {
     width: 50%;
@@ -201,10 +207,6 @@ button:active {
     width: 250px;
     clip-path: polygon(8% 0%, 100% 0%, 92% 100%, 0% 100%);
 }
-.swindicator {
-    width: 15px;
-    height: 15px;
-    background-color: gray;
-    border-radius: 99px;
+#timeset {
     cursor: pointer;
 }
