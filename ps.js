@@ -4,7 +4,6 @@ let score = 0
 let timer = false
 let LowPerformance = false
 
-const timecalib = document.querySelector('#timeset');
 
 let TimerStart = new Date();
 let count = 0
@@ -14,15 +13,16 @@ document.addEventListener('DOMContentLoaded', function () {
     let startB = document.getElementById('swstart');
     let stopB = document.getElementById('swstop');
     let resetB = document.getElementById('swreset');
-    let lowB = document.getElementById('swlow');
+    let lowPerfB = document.getElementById('swlow');
     document.querySelector('.modifiermultvalue').textContent = "x1.00";
     const ActiveMods = document.querySelector('.displaymods');
     const placeholder = document.querySelector('.nomods');
+    let timecalib = document.querySelector('#timeset');
     MultScore = 100;
-    updateActivatedImages();
+    updateActivatedMods();
 
     // Function to update the activated Mods inside of the Visualizer
-    function updateActivatedImages() {
+    function updateActivatedMods() {
       // Get all active mods
       const activeImages = document.querySelectorAll('.modicon[data-active="true"]');
 
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       }
       setScore();
-      updateActivatedImages();
+      updateActivatedMods();
       console.log(RelevantMods)
     }
 
@@ -209,6 +209,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         console.log("Started");
         timer = true;
+        document.getElementById('swreset').innerHTML = `Reset`;
+        document.getElementById('swstop').innerHTML = "Stop"
         stopWatch();
       } else {
         return;
@@ -216,6 +218,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   
     stopB.addEventListener('click', function () {
+      if (count === 0) {
+        return
+      }
       console.log("Timer Stopped");
       timer = false;
       let current = new Date();
@@ -237,10 +242,12 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log("Timer Reset");
         timer = false;
         count = 0
+        document.getElementById('swstop').innerHTML = "Stop"
         document.getElementById('TimeDisplay').innerHTML = "--:--.---";
         document.getElementById('scoredisplay').innerHTML = "-,---,---";
         document.getElementById('swstart').innerHTML = "Start";
         document.getElementById("swstart").style.display="inline"
+        document.getElementById('swreset').innerHTML = `<span class="modsubtext">Reset</span>`
         document.getElementById("swstop").style.display="inline"
     });
 
@@ -271,7 +278,7 @@ document.addEventListener('DOMContentLoaded', function () {
             setScore()
         });
     
-    lowB.addEventListener('click', function () {
+    lowPerfB.addEventListener('click', function () {
         LowPerformance = !LowPerformance
         if (LowPerformance) {
           document.getElementById('swlow').innerHTML = "Disable Low<br>Performance";
