@@ -6,27 +6,7 @@
 body {
     background: linear-gradient(315deg, #000a24, #002652, #000000);
     background-size: 600% 600%;
-
-    -webkit-animation: BGAnimation 60s ease infinite;
-    -moz-animation: BGAnimation 60s ease infinite;
-    -o-animation: BGAnimation 60s ease infinite;
     animation: BGAnimation 60s ease infinite;
-}
-
-@-webkit-keyframes BGAnimation {
-    0%{background-position:0% 4%}
-    50%{background-position:100% 97%}
-    100%{background-position:0% 4%}
-}
-@-moz-keyframes BGAnimation {
-    0%{background-position:0% 4%}
-    50%{background-position:100% 97%}
-    100%{background-position:0% 4%}
-}
-@-o-keyframes BGAnimation {
-    0%{background-position:0% 4%}
-    50%{background-position:100% 97%}
-    100%{background-position:0% 4%}
 }
 @keyframes BGAnimation {
     0%{background-position:0% 4%}
