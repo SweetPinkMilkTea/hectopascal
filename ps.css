@@ -136,15 +136,16 @@ h1, h3, p, div, span, button, .mainheader{
 /* TOOLTIP */
 .tooltip {
     position: relative;
-    display: inline-block;
-    height: 40px;
+    display: flex;
+    justify-content: center;
+    width: 50px;
     transition: 0.2s cubic-bezier(0.157, 0.885, 0.32, 1.275);
 }
 .tooltip:hover {
-    height: 50px;
+    width: 60px;
 }
 .tooltip:active {
-    height: 60px;
+    width: 70px;
 }
 .tooltip .tooltiptext {
     visibility: hidden;
