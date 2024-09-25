@@ -2,6 +2,7 @@ let activeCount = 0; // Variable to track the number of active (toggled on) divs
 let MultScore = 100;
 let score = 0
 let timer = false
+let LowPerformance = false
 
 const timecalib = document.querySelector('#timeset');
 
@@ -13,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let startB = document.getElementById('swstart');
     let stopB = document.getElementById('swstop');
     let resetB = document.getElementById('swreset');
+    let lowB = document.getElementById('swlow');
     document.querySelector('.modifiermultvalue').textContent = "x1.00";
     const ActiveMods = document.querySelector('.displaymods');
     const placeholder = document.querySelector('.nomods');
@@ -183,7 +185,11 @@ document.addEventListener('DOMContentLoaded', function () {
         let m = Math.floor((count / 60000)) % 60;
 
         document.getElementById('TimeDisplay').innerHTML = m.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + s.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + ms.toLocaleString('en-US', {minimumIntegerDigits: 3, useGrouping:false});
-        setTimeout(stopWatch, 5);
+        if (LowPerformance) {
+          setTimeout(stopWatch, 500);
+        } else {
+          setTimeout(stopWatch, 10);
+        }
         setScore();
       } else {
         document.getElementById('timeset').innerHTML = "<small>Time inaccurate? Click here to manually set your time.</small>"
@@ -212,6 +218,13 @@ document.addEventListener('DOMContentLoaded', function () {
     stopB.addEventListener('click', function () {
       console.log("Timer Stopped");
       timer = false;
+      let current = new Date();
+      count = +current - +TimerStart;
+      let ms = count % 1000;
+      let s = Math.floor((count /  1000)) % 60;
+      let m = Math.floor((count / 60000)) % 60;
+      document.getElementById('TimeDisplay').innerHTML = m.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + s.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + ms.toLocaleString('en-US', {minimumIntegerDigits: 3, useGrouping:false});
+      setScore()
     });
   
     resetB.addEventListener('click', function () {
@@ -251,6 +264,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
             setScore()
         });
+    
+    lowB.addEventListener('click', function () {
+        LowPerformance = !LowPerformance
+        if (LowPerformance) {
+          document.getElementById('swlow').innerHTML = "Disable Low<br>Performance";
+        } else {
+          document.getElementById('swlow').innerHTML = "Enable Low<br>Performance";
+        }
+    });
     
     document.querySelector('.resetbutton').addEventListener('click', resetAllMods);
   }
