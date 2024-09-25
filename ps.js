@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let ms = count % 1000;
         let s = Math.floor((count /  1000)) % 60;
-        let m = Math.floor((count / 60000)) % 60;
+        let m = Math.floor((count / 60000));
 
         document.getElementById('TimeDisplay').innerHTML = m.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + s.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + ms.toLocaleString('en-US', {minimumIntegerDigits: 3, useGrouping:false});
         if (LowPerformance) {
@@ -224,6 +224,12 @@ document.addEventListener('DOMContentLoaded', function () {
       let s = Math.floor((count /  1000)) % 60;
       let m = Math.floor((count / 60000)) % 60;
       document.getElementById('TimeDisplay').innerHTML = m.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + s.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + ms.toLocaleString('en-US', {minimumIntegerDigits: 3, useGrouping:false});
+      if (!timer) {
+        document.getElementById('swstop').innerHTML = "Retime at<br>this point"
+      } else {
+        document.getElementById('swstop').innerHTML = "Stop"
+      }
+      
       setScore()
     });
   
@@ -255,7 +261,7 @@ document.addEventListener('DOMContentLoaded', function () {
             
             let ms = count % 1000;
             let s = Math.floor((count /  1000)) % 60;
-            let m = Math.floor((count / 60000)) % 60;
+            let m = Math.floor((count / 60000));
 
             document.getElementById("swstart").style.display="none"
             document.getElementById("swstop").style.display="none"
