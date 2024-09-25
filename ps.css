@@ -155,6 +155,11 @@ body {
     margin-top: 10px;
     color: rgb(73, 73, 73);
 }
+#modanecdote {
+    width: 100%;
+    display: block;
+    text-align: center;
+}
 .modtitle {
     color:#000000;
     background-color: #fff;

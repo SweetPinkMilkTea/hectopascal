@@ -47,7 +47,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Refreshing the score whenever Mult or Time updates
     function setScore() {
-      console.log(count/1000)
       if ((count/1000) < 7200) {
         score = Math.floor((0.0339506175 * ((count/1000-7200) ** (2))) * (MultScore/100)).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
       } else {
@@ -64,12 +63,21 @@ document.addEventListener('DOMContentLoaded', function () {
     function calculateTotalScoreMultiplier() {
       MultScore = 100; // Reset total score
       // Loop over each image-div
+      let RelevantMods = 0
+      let RelevantModsList = ["1","2","3","4","5","6","7","8","9","21"]
+      let MultiplayerAmplifier = 1
       document.querySelectorAll('.modicon').forEach(
         div => {
           const isActive = div.getAttribute('data-active') === 'true'; // Check if active
-          const imageScore = parseInt(div.getAttribute('data-score')); // Get the image score
+          const ModScore = parseInt(div.getAttribute('data-score')); // Get the mod score
           if (isActive) {
-            MultScore += imageScore; // Add score if image is toggled on
+            if (RelevantModsList.includes(div.getAttribute('data-id'))) {
+              RelevantMods += 1
+            }
+            if (["12","13","14","15","16","17","18"].includes(div.getAttribute('data-id'))) {
+              MultiplayerAmplifier = MultiplayerAmplifier + RelevantMods
+            }
+            MultScore += ModScore * MultiplayerAmplifier; // Add score if image is toggled on
           }
         }
       );
@@ -83,7 +91,6 @@ document.addEventListener('DOMContentLoaded', function () {
         MultScore /= 10;
       }      
       // Update the score display
-      console.log(MultScore);
       document.querySelector('.modifiermultvalue').textContent =  `x${(MultScore / 100).toFixed(2)}`;
       if (MultScore === 100) {
         document.querySelector('.modifiermultvalue').style.color = 'white';
@@ -96,6 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       setScore();
       updateActivatedImages();
+      console.log(RelevantMods)
     }
 
     // Function to disable incompatible mods
@@ -147,7 +155,6 @@ document.addEventListener('DOMContentLoaded', function () {
       div => {
         div.addEventListener('click', function () {
             const isActive = this.getAttribute('data-active') === 'true';
-            console.log(`Clicked, was ${isActive}`)
             if (isActive) {
               this.classList.remove('toggled-on'); // Remove toggled-on class
               this.setAttribute('data-active', 'false'); // Set as inactive
@@ -203,12 +210,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   
     stopB.addEventListener('click', function () {
-      console.log("Stopped");
+      console.log("Timer Stopped");
       timer = false;
     });
   
     resetB.addEventListener('click', function () {
-        console.log("Reset");
+        console.log("Timer Reset");
         timer = false;
         count = 0
         document.getElementById('TimeDisplay').innerHTML = "--:--.---";
@@ -236,8 +243,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let ms = count % 1000;
             let s = Math.floor((count /  1000)) % 60;
             let m = Math.floor((count / 60000)) % 60;
-            console.log(m + "mins " + s + "secs " + ms + "ms");
-            
+
             document.getElementById("swstart").style.display="none"
             document.getElementById("swstop").style.display="none"
 
