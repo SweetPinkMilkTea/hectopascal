@@ -1,11 +1,12 @@
 let activeCount = 0; // Variable to track the number of active (toggled on) divs
 let MultScore = 100;
 let score = 0
-let timer = false
+let timerIsRunning = false
+let elapsedTime = 0
 let LowPerformance = false
 
 
-let TimerStart = new Date();
+let startTime = new Date();
 let count = 0
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -173,12 +174,13 @@ document.addEventListener('DOMContentLoaded', function () {
     );
     
     // Stopwatch Main Function
-    function stopWatch() {
-      if (timer) {
+    function stopWatchUpdate() {
+      if (timerIsRunning) {
         document.getElementById('timeset').innerHTML = ""
-        document.getElementById('swstart').innerHTML = `<span class="modsubtext">Continue</span>`;
-        let current = new Date();
-        count = +current - +TimerStart;
+        document.getElementById('swstart').innerHTML = `<span class="modsubtext">Start</span>`;
+        document.getElementById('swreset').innerHTML = `Stop and Reset`;
+        elapsedTime = Date.now() - startTime;
+        count = Math.floor(elapsedTime)
 
         let ms = count % 1000;
         let s = Math.floor((count /  1000)) % 60;
@@ -186,32 +188,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
         document.getElementById('TimeDisplay').innerHTML = m.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + s.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + ms.toLocaleString('en-US', {minimumIntegerDigits: 3, useGrouping:false});
         if (LowPerformance) {
-          setTimeout(stopWatch, 500);
+          setTimeout(stopWatchUpdate, 500);
         } else {
-          setTimeout(stopWatch, 10);
+          setTimeout(stopWatchUpdate, 10);
         }
         setScore();
       } else {
+        document.getElementById('swreset').innerHTML = `Reset`;
         document.getElementById('timeset').innerHTML = "<small>Time inaccurate? Click here to manually set your time.</small>"
         if (count === 0) {
           document.getElementById('swstart').innerHTML = "Start";
         } else {
-          document.getElementById('swstart').innerHTML = `Continue`;
+          document.getElementById('swstart').innerHTML = `Undo Stop`;
         }
         return
       }
     }
 
     startB.addEventListener('click', function () {
-      if (!timer) {
+      if (!timerIsRunning) {
         if (count === 0) {
-          TimerStart = new Date();
+          startTime = Date.now() - elapsedTime;
         }
         console.log("Started");
-        timer = true;
+        timerIsRunning = true;
         document.getElementById('swreset').innerHTML = `Reset`;
         document.getElementById('swstop').innerHTML = "Stop"
-        stopWatch();
+        stopWatchUpdate();
       } else {
         return;
       }
@@ -222,27 +225,26 @@ document.addEventListener('DOMContentLoaded', function () {
         return
       }
       console.log("Timer Stopped");
-      timer = false;
-      let current = new Date();
-      count = +current - +TimerStart;
+      timerIsRunning = false;
+      elapsedTime = Date.now() - startTime;
+      count = Math.floor(elapsedTime)
+      
       let ms = count % 1000;
       let s = Math.floor((count /  1000)) % 60;
-      let m = Math.floor((count / 60000)) % 60;
+      let m = Math.floor((count / 60000));
+
       document.getElementById('TimeDisplay').innerHTML = m.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + s.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + ms.toLocaleString('en-US', {minimumIntegerDigits: 3, useGrouping:false});
-      if (!timer) {
-        document.getElementById('swstop').innerHTML = "Retime at<br>this point"
-      } else {
-        document.getElementById('swstop').innerHTML = "Stop"
-      }
+      document.getElementById('swstop').innerHTML = "Retime at<br>this point"
       
       setScore()
     });
   
     resetB.addEventListener('click', function () {
         console.log("Timer Reset");
-        timer = false;
+        timerIsRunning = false;
         count = 0
-        document.getElementById('swstop').innerHTML = "Stop"
+        elapsedTime = 0
+        document.getElementById('swstop').innerHTML = `<span class="modsubtext">Stop</span>`
         document.getElementById('TimeDisplay').innerHTML = "--:--.---";
         document.getElementById('scoredisplay').innerHTML = "-,---,---";
         document.getElementById('swstart').innerHTML = "Start";
@@ -276,8 +278,8 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('TimeDisplay').innerHTML = m.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + s.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + ms.toLocaleString('en-US', {minimumIntegerDigits: 3, useGrouping:false});
 
             setScore()
-        });
-    
+    });
+
     lowPerfB.addEventListener('click', function () {
         LowPerformance = !LowPerformance
         if (LowPerformance) {
