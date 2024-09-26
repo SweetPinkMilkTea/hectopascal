@@ -43,6 +43,12 @@ document.addEventListener('DOMContentLoaded', function () {
           clonedImg.classList.add('activated-image');
           clonedImg.classList.remove('modicon');
           clonedImg.classList.add('modiconclone');
+          if (activeImages.length > 5) {
+            clonedImg.style.margin = "0px 3px 0px 3px"
+            if (activeImages.length > 9) {
+              clonedImg.style.margin = "0px 1px 0px 1px"
+            }
+          }
           ActiveMods.appendChild(clonedImg);
         });
       }
