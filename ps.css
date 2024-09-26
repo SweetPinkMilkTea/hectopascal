@@ -4,14 +4,14 @@
   }
 
 body {
-    background: linear-gradient(315deg, #000a24, #002652, #000000);
+    background: linear-gradient(315deg, #000a24,#000a24, #002652, #000000,#000a24, #000a24);
     background-size: 600% 600%;
     animation: BGAnimation 60s ease infinite;
 }
 @keyframes BGAnimation {
-    0%{background-position:0% 4%}
-    50%{background-position:100% 97%}
-    100%{background-position:0% 4%}
+    0%{background-position:25% 25%}
+    50%{background-position:75% 75%}
+    100%{background-position:25% 25%}
 }
 
 /* Main Contents */
@@ -60,7 +60,7 @@ h1, h3, p, div, span, button, .mainheader{
     margin-top: 30px;
     border-radius: 10px;
     border: 1px solid white;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(15, 15, 15, 0.5);
     max-width: 700px;
     transition: 0.2s cubic-bezier(0.157, 0.885, 0.32, 1.275);
 }
