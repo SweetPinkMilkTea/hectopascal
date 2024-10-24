@@ -42,7 +42,7 @@ h1, h3, p, div, span, button, .mainheader{
     font-size: 30px;
 }
 .mainheader {
-    width: 50%;
+    width: 90%;
     padding-bottom: 5px;
     background-color: #00000000;
     border: 1px solid #00000000;
@@ -50,7 +50,7 @@ h1, h3, p, div, span, button, .mainheader{
     text-align: center;
     font-size: x-large;
     font-weight: bold;
-    margin: 10px 25% 10px 25%;
+    margin: 10px 5% 10px 5%;
 }
 .headerbox {
     display: flex;
@@ -70,7 +70,7 @@ h1, h3, p, div, span, button, .mainheader{
     border-radius: 10px;
     border: 1px solid white;
     background-color: rgba(15, 15, 15, 0.5);
-    max-width: 700px;
+    max-width: 80vw;
     transition: 0.2s cubic-bezier(0.157, 0.885, 0.32, 1.275);
 }
 .cont > p, h3 {
