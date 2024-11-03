@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
       MultScore = 100; // Reset total score
       // Loop over each image-div
       let RelevantMods = 0
-      let RelevantModsList = ["1","2","3","4","5","6","7","8","9","21"]
+      let RelevantModsList = ["1","2","3","4","5","6","7","8","9","21","22"]
       let MultiplayerAmplifier = 1
       document.querySelectorAll('.modicon').forEach(
         div => {
