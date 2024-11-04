@@ -9,6 +9,13 @@ let LowPerformance = false
 let startTime = new Date();
 let count = 0
 
+// SFX
+const sfx_hover = new Audio('sfx/Hover.wav');
+const sfx_button_1 = new Audio('sfx/Button1.wav');
+const sfx_button_2 = new Audio('sfx/Button2.wav');
+const sfx_select = new Audio('sfx/SelectMod.wav');
+const sfx_deselect = new Audio('sfx/DeselectMod.wav');
+
 document.addEventListener('DOMContentLoaded', function () {
     // Stopwatch Buttons
     let startB = document.getElementById('swstart');
@@ -140,8 +147,10 @@ document.addEventListener('DOMContentLoaded', function () {
         calculateTotalScoreMultiplier();
     }
 
-    // Function to toggle off all active images
+    // Function to toggle off all active mods
     function resetAllMods() {
+      sfx_button_2.currentTime = 0
+      sfx_button_2.play()
       // Loop over each image-div and toggle off all active ones
       document.querySelectorAll('.modicon').forEach(div => {
         const isActive = div.getAttribute('data-active') === 'true';
@@ -159,15 +168,21 @@ document.addEventListener('DOMContentLoaded', function () {
       calculateTotalScoreMultiplier();
     }
 
-    // Set up event listeners for the image divs
+    // Set up event listeners for the mods
     document.querySelectorAll('.modicon').forEach(
       div => {
         div.addEventListener('click', function () {
             const isActive = this.getAttribute('data-active') === 'true';
             if (isActive) {
+              const sfx_select = new Audio('sfx/SelectMod.wav');
+              sfx_select.volume = 0.5;
+              sfx_select.play();
               this.classList.remove('toggled-on'); // Remove toggled-on class
               this.setAttribute('data-active', 'false'); // Set as inactive
             } else {
+              const sfx_deselect = new Audio('sfx/DeselectMod.wav');
+              sfx_deselect.volume = 0.5;
+              sfx_deselect.play();
               this.classList.add('toggled-on'); // Add toggled-on class
               this.setAttribute('data-active', 'true'); // Set as active
             }            // Recalculate total score after the click
@@ -183,7 +198,6 @@ document.addEventListener('DOMContentLoaded', function () {
     function stopWatchUpdate() {
       if (timerIsRunning) {
         document.getElementById('timeset').innerHTML = ""
-        document.getElementById('swstart').innerHTML = `<span class="modsubtext">Start</span>`;
         document.getElementById('swreset').innerHTML = `Stop and Reset`;
         elapsedTime = Date.now() - startTime;
         count = Math.floor(elapsedTime)
@@ -217,6 +231,10 @@ document.addEventListener('DOMContentLoaded', function () {
           startTime = Date.now() - elapsedTime;
         }
         console.log("Started");
+        document.getElementById('swstart').innerHTML = `<span class="modsubtext">Start</span>`;
+        const sfx_button_1 = new Audio('sfx/Button1.wav');
+        sfx_button_1.volume = 0.5;
+        sfx_button_1.play();
         timerIsRunning = true;
         document.getElementById('swreset').innerHTML = `Reset`;
         document.getElementById('swstop').innerHTML = "Stop"
@@ -231,6 +249,9 @@ document.addEventListener('DOMContentLoaded', function () {
         return
       }
       console.log("Timer Stopped");
+      const sfx_button_1 = new Audio('sfx/Button1.wav');
+      sfx_button_1.volume = 0.5;
+      sfx_button_1.play();
       timerIsRunning = false;
       elapsedTime = Date.now() - startTime;
       count = Math.floor(elapsedTime)
@@ -248,6 +269,9 @@ document.addEventListener('DOMContentLoaded', function () {
     resetB.addEventListener('click', function () {
         console.log("Timer Reset");
         timerIsRunning = false;
+        const sfx_button_1 = new Audio('sfx/Button1.wav');
+        sfx_button_1.volume = 0.5;
+        sfx_button_1.play();
         count = 0
         elapsedTime = 0
         document.getElementById('swstop').innerHTML = `<span class="modsubtext">Stop</span>`
@@ -260,34 +284,40 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     timecalib.addEventListener('click', function () {
-            let userInput = prompt("Enter time in milliseconds:")
-            if (userInput === null) {
-              console.log("Input cancelled");
-              return;
-            }
+        const sfx_button_1 = new Audio('sfx/Button1.wav');
+        sfx_button_1.volume = 0.5;
+        sfx_button_1.play();
+        let userInput = prompt("Enter time in milliseconds:")
+        if (userInput === null) {
+          console.log("Input cancelled");
+          return;
+        }
 
-            let newTime = parseFloat(userInput);
-            if (isNaN(newTime) || newTime < 0) {
-              alert("Invalid input. Please enter a valid number.");
-              return;
-            }
+        let newTime = parseFloat(userInput);
+        if (isNaN(newTime) || newTime < 0) {
+          alert("Invalid input. Please enter a valid number.");
+          return;
+        }
 
-            count = newTime
-            
-            let ms = count % 1000;
-            let s = Math.floor((count /  1000)) % 60;
-            let m = Math.floor((count / 60000));
+        count = newTime
+        
+        let ms = count % 1000;
+        let s = Math.floor((count /  1000)) % 60;
+        let m = Math.floor((count / 60000));
 
-            document.getElementById("swstart").style.display="none"
-            document.getElementById("swstop").style.display="none"
+        document.getElementById("swstart").style.display="none"
+        document.getElementById("swstop").style.display="none"
 
-            document.getElementById('TimeDisplay').innerHTML = m.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + s.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + ms.toLocaleString('en-US', {minimumIntegerDigits: 3, useGrouping:false});
+        document.getElementById('TimeDisplay').innerHTML = m.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + s.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + ms.toLocaleString('en-US', {minimumIntegerDigits: 3, useGrouping:false});
 
-            setScore()
+        setScore()
     });
 
     lowPerfB.addEventListener('click', function () {
         LowPerformance = !LowPerformance
+        const sfx_button_1 = new Audio('sfx/Button1.wav');
+        sfx_button_1.volume = 0.5;
+        sfx_button_1.play();
         if (LowPerformance) {
           document.getElementById('swlow').innerHTML = "Disable Low<br>Performance";
         } else {
@@ -296,5 +326,16 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     
     document.querySelector('.resetbutton').addEventListener('click', resetAllMods);
+
+    function playHoverSound() {
+      const sfx_hover = new Audio('sfx/Hover.wav');
+      sfx_hover.volume = 0.5
+      sfx_hover.play();
+    }
+     // Select all <img> and <button> elements for hover sfx
+     const hoverables = document.querySelectorAll('img, button');
+     hoverables.forEach(element => {
+         element.addEventListener('mouseenter', playHoverSound);
+     });
   }
 );
