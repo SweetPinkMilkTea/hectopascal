@@ -19,6 +19,16 @@ h1, h3, p, div, span, button, .mainheader{
     font-family: "Torus";
     color: white;
 }
+h1, #ft_text {
+    text-align: center;
+}
+a {
+    color: #ff00bf;
+}
+#ft_text {
+    font-size: small;
+    margin-top: 20px;
+}
 .subdiv{
     width: 50%;
     height: 60px;
@@ -99,6 +109,9 @@ h1, h3, p, div, span, button, .mainheader{
 .modicon {
     cursor: pointer;
 }
+.modicon:hover {
+    opacity: 0.6;
+}
 .modicon.toggled-on, .modiconclone.toggled-on {
     opacity: 1;
   }
@@ -131,10 +144,10 @@ h1, h3, p, div, span, button, .mainheader{
     transition: 0.2s cubic-bezier(0.157, 0.885, 0.32, 1.275);
 }
 .tooltip:hover {
-    width: 60px;
+    width: 55px;
 }
 .tooltip:active {
-    width: 70px;
+    width: 60px;
 }
 .tooltip .tooltiptext {
     visibility: hidden;
@@ -153,17 +166,14 @@ h1, h3, p, div, span, button, .mainheader{
     justify-content: center;
     align-items: center;
 
-    /* Position the tooltip above the image */
+    /* Position */
     position: absolute;
     z-index: 1;
-    bottom: 125%;  /* Adjust as needed */
+    bottom: 125%;
     left: 50%;
     transform: translateX(-50%);
-
-    /* Tooltip arrow (optional) */
-    opacity: 0;
-    transition: opacity 0.3s;
 }
+
 .tooltip:hover .tooltiptext {
     visibility: visible;
     display: flex;
@@ -220,10 +230,11 @@ button {
     cursor: pointer;
     border: none;
     clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%);
-    background-color: rgba(255, 255, 255, 0.329);
+    background-color: #ffffff54;
     transition: 0.15s cubic-bezier(0.157, 0.885, 0.32, 1.275);
 }
 button:hover {
+    background-color: #ffffff77;
     width: 200px;
     clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
 }
