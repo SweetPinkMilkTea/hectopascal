@@ -15,6 +15,17 @@ const sfx_button_1 = new Audio('sfx/Button1.wav');
 const sfx_button_2 = new Audio('sfx/Button2.wav');
 const sfx_select = new Audio('sfx/SelectMod.wav');
 const sfx_deselect = new Audio('sfx/DeselectMod.wav');
+sfx_hover.preload = "auto";
+sfx_button_1.preload = "auto";
+sfx_button_2.preload = "auto";
+sfx_select.preload = "auto";
+sfx_deselect.preload = "auto";
+
+function playHoverSound() {
+  const sfx_hover = new Audio("sfx/Hover.wav");
+  sfx_hover.volume = 0.5
+  sfx_hover.play();
+}
 
 document.addEventListener('DOMContentLoaded', function () {
     // Stopwatch Buttons
@@ -150,6 +161,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to toggle off all active mods
     function resetAllMods() {
       sfx_button_2.currentTime = 0
+      sfx_button_2.volume = 0.5
       sfx_button_2.play()
       // Loop over each image-div and toggle off all active ones
       document.querySelectorAll('.modicon').forEach(div => {
@@ -174,13 +186,13 @@ document.addEventListener('DOMContentLoaded', function () {
         div.addEventListener('click', function () {
             const isActive = this.getAttribute('data-active') === 'true';
             if (isActive) {
-              const sfx_select = new Audio('sfx/SelectMod.wav');
+              const sfx_select = new Audio("sfx/SelectMod.wav");
               sfx_select.volume = 0.5;
               sfx_select.play();
               this.classList.remove('toggled-on'); // Remove toggled-on class
               this.setAttribute('data-active', 'false'); // Set as inactive
             } else {
-              const sfx_deselect = new Audio('sfx/DeselectMod.wav');
+              const sfx_deselect = new Audio("sfx/DeselectMod.wav");
               sfx_deselect.volume = 0.5;
               sfx_deselect.play();
               this.classList.add('toggled-on'); // Add toggled-on class
@@ -232,7 +244,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         console.log("Started");
         document.getElementById('swstart').innerHTML = `<span class="modsubtext">Start</span>`;
-        const sfx_button_1 = new Audio('sfx/Button1.wav');
+        const sfx_button_1 = new Audio("sfx/Button1.wav");
         sfx_button_1.volume = 0.5;
         sfx_button_1.play();
         timerIsRunning = true;
@@ -249,7 +261,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return
       }
       console.log("Timer Stopped");
-      const sfx_button_1 = new Audio('sfx/Button1.wav');
+      const sfx_button_1 = new Audio("sfx/Button1.wav");
       sfx_button_1.volume = 0.5;
       sfx_button_1.play();
       timerIsRunning = false;
@@ -269,7 +281,7 @@ document.addEventListener('DOMContentLoaded', function () {
     resetB.addEventListener('click', function () {
         console.log("Timer Reset");
         timerIsRunning = false;
-        const sfx_button_1 = new Audio('sfx/Button1.wav');
+        const sfx_button_1 = new Audio("sfx/Button1.wav");
         sfx_button_1.volume = 0.5;
         sfx_button_1.play();
         count = 0
@@ -284,7 +296,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     timecalib.addEventListener('click', function () {
-        const sfx_button_1 = new Audio('sfx/Button1.wav');
+        const sfx_button_1 = new Audio("sfx/Button1.wav");
         sfx_button_1.volume = 0.5;
         sfx_button_1.play();
         let userInput = prompt("Enter time in milliseconds:")
@@ -315,7 +327,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     lowPerfB.addEventListener('click', function () {
         LowPerformance = !LowPerformance
-        const sfx_button_1 = new Audio('sfx/Button1.wav');
+        const sfx_button_1 = new Audio("sfx/Button1.wav");
         sfx_button_1.volume = 0.5;
         sfx_button_1.play();
         if (LowPerformance) {
@@ -327,15 +339,10 @@ document.addEventListener('DOMContentLoaded', function () {
     
     document.querySelector('.resetbutton').addEventListener('click', resetAllMods);
 
-    function playHoverSound() {
-      const sfx_hover = new Audio('sfx/Hover.wav');
-      sfx_hover.volume = 0.5
-      sfx_hover.play();
-    }
-     // Select all <img> and <button> elements for hover sfx
-     const hoverables = document.querySelectorAll('img, button');
-     hoverables.forEach(element => {
-         element.addEventListener('mouseenter', playHoverSound);
-     });
+    // Select all <img> and <button> elements for hover sfx
+    const hoverables = document.querySelectorAll('img, button');
+    hoverables.forEach(element => {
+        element.addEventListener('mouseenter', playHoverSound);
+    });
   }
 );
