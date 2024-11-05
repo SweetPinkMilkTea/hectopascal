@@ -9,6 +9,18 @@ let LowPerformance = false
 let startTime = new Date();
 let count = 0
 
+// Mod Combos
+const mc1 = ['2', '3', '4'];
+const mc1_1 = ['1', '3', '4'];
+const mc2 = ['4', '5'];
+const mc3 = ['6', '9'];
+const mc4 = ['7', '21'];
+const mc5 = ['21', '22'];
+const mc6 = ['10', '11'];
+const mc7 = ['3', '6'];
+const mod_dict = {'1':"SU",'2':"BL",'3':"PF",'4':"CP",'5':"SA",'6':"AN",'7':"HA",'8':"LO",'9':"DF",'21':"TS",'22':"SD",'10':"SN",'11':"PA",'12':"2P",'13':"3P",'14':"4P",'15':"5P",'16':"6P",'17':"7P",'18':"8P+",'19':" I"}
+const mod_full = {"SU":"Sensory Underload","BL":"Bargainless","PF":"Perfect","CP":"Cleithrophobia-phobia","SA":"Safety Averse","AN":"Anchored","HA":"Hyperactive","LO":"Lock-On","DF":"Deafened","TS":"Thrillseeker","SD":"Scared of the Dark","SN":"Safety Net","PA":"Premium Assistance","2P":"Friendship-Power","3P":"Friendship-Power","4P":"Group of Sweats","5P":"Group of Sweats","6P":"Group of Sweats","7P":"Group of Sweats","8P+":"This one sucks, doesn't it?"," I":"...what?",}
+
 // SFX
 const sfx_hover = new Audio('sfx/Hover.wav');
 const sfx_button_1 = new Audio('sfx/Button1.wav');
@@ -27,6 +39,11 @@ function playHoverSound() {
   sfx_hover.play();
 }
 
+function ArrComp(a,b) {
+  if (a.length !== b.length) return false;
+  return a.every((value, index) => value === b[index]);
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     // Stopwatch Buttons
     let startB = document.getElementById('swstart');
@@ -43,27 +60,63 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to update the activated Mods inside of the Visualizer
     function updateActivatedMods() {
       // Get all active mods
-      const activeImages = document.querySelectorAll('.modicon[data-active="true"]');
+      const activeMods = document.querySelectorAll('.modicon[data-active="true"]');
+      const dataIds = Array.from(activeMods).map(element => element.getAttribute('data-id'));
+      const activeModsRelevant = dataIds.filter(item => !["12","13","14","15","16","17","18","19"].includes(item));
 
       // Clear the activated container
       ActiveMods.innerHTML = '';
 
       // If there are no active images, show the placeholder
-      if (activeImages.length === 0) {
+      if (activeMods.length === 0) {
         placeholder.style.display = 'block';
         ActiveMods.appendChild(placeholder);
+        document.getElementById("modcomptext").innerHTML = "NoMod";
+        document.getElementById("modcomptext").style.display = "none";
       } else {
-        placeholder.style.display = 'none'; // Hide the placeholder
-        // Loop through all active images and display them in the activated container
-        activeImages.forEach(activeImageDiv => {
-          const img = activeImageDiv.querySelector('img');
-          const clonedImg = activeImageDiv.cloneNode(true); // Clone the image to display in the activated container
+        document.getElementById("modcomptext").style.display = "inline"
+        if (activeMods.length === 1) {
+          document.getElementById("modcomptext").innerHTML = mod_full[mod_dict[activeMods[0].getAttribute('data-id')]];
+        }
+        placeholder.style.display = 'none';
+        // Loop through all active images and display them above
+        let modcomptext = ""
+        activeMods.forEach(activeImageDiv => {
+          if (activeMods.length != 1) {
+            modcomptext = modcomptext + mod_dict[activeImageDiv.getAttribute('data-id')]
+            document.getElementById("modcomptext").innerHTML = modcomptext
+            if (ArrComp(activeModsRelevant,mc1)) {
+              document.getElementById("modcomptext").innerHTML = "Badge Triumvirate+"
+            }
+            if (ArrComp(activeModsRelevant,mc1_1)) {
+              document.getElementById("modcomptext").innerHTML = "Badge Triumvirate"
+            }
+            if (ArrComp(activeModsRelevant,mc2)) {
+              document.getElementById("modcomptext").innerHTML = "Leaving it to Fate"
+            }
+            if (ArrComp(activeModsRelevant,mc3)) {
+              document.getElementById("modcomptext").innerHTML = "Neural Annihilation"
+            }
+            if (ArrComp(activeModsRelevant,mc4)) {
+              document.getElementById("modcomptext").innerHTML = "No time for carefulness"
+            }
+            if (ArrComp(activeModsRelevant,mc5)) {
+              document.getElementById("modcomptext").innerHTML = "Like a moth to the flame"
+            }
+            if (ArrComp(activeModsRelevant,mc6)) {
+              document.getElementById("modcomptext").innerHTML = "Chilling out"
+            }
+            if (ArrComp(activeModsRelevant,mc7)) {
+              document.getElementById("modcomptext").innerHTML = "Expert Cameraman"
+            }
+          }
+          const clonedImg = activeImageDiv.cloneNode(true);
           clonedImg.classList.add('activated-image');
           clonedImg.classList.remove('modicon');
           clonedImg.classList.add('modiconclone');
-          if (activeImages.length > 5) {
+          if (activeMods.length > 5) {
             clonedImg.style.margin = "0px 3px 0px 3px"
-            if (activeImages.length > 9) {
+            if (activeMods.length > 9) {
               clonedImg.style.margin = "0px 1px 0px 1px"
             }
           }
@@ -130,7 +183,6 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       setScore();
       updateActivatedMods();
-      console.log(RelevantMods)
     }
 
     // Function to disable incompatible mods

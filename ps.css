@@ -92,7 +92,16 @@ a {
 #displaymodscontainer {
     height: 40px;
     margin-top: 20px;
-    margin-bottom: 20px;
+}
+#modcomposition {
+    display: flex;
+    margin-bottom: 10px;
+    align-items: center;
+    justify-content: center;
+    font-size: smaller;
+}
+#modcomposition > * {
+    margin: 0px;
 }
 .displaymods > * {
     margin: 0px 7px 0px 7px;
