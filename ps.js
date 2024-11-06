@@ -71,10 +71,8 @@ document.addEventListener('DOMContentLoaded', function () {
       if (activeMods.length === 0) {
         placeholder.style.display = 'block';
         ActiveMods.appendChild(placeholder);
-        document.getElementById("modcomptext").innerHTML = "NoMod";
-        document.getElementById("modcomptext").style.display = "none";
+        document.getElementById("modcomptext").innerHTML = "No Mod";
       } else {
-        document.getElementById("modcomptext").style.display = "inline"
         if (activeMods.length === 1) {
           document.getElementById("modcomptext").innerHTML = mod_full[mod_dict[activeMods[0].getAttribute('data-id')]];
         }
