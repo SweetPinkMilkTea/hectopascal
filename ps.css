@@ -71,6 +71,7 @@ a {
     margin: 10px
 }
 .headerbox > * {
+    height: 37px;
     padding-left: 30px;
     padding-right: 30px;
 }
@@ -90,7 +91,7 @@ a {
     margin-right: 10px;
 }
 #displaymodscontainer {
-    height: 40px;
+    height: 37px;
     margin-top: 20px;
 }
 #modcomposition {
@@ -235,7 +236,7 @@ a {
 }
 button {
     width: 150px;
-    height: 50px;
+    height: 50px !important;
     cursor: pointer;
     border: none;
     clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%);
