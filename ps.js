@@ -236,13 +236,13 @@ document.addEventListener('DOMContentLoaded', function () {
         div.addEventListener('click', function () {
             const isActive = this.getAttribute('data-active') === 'true';
             if (isActive) {
-              const sfx_select = new Audio("sfx/SelectMod.wav");
+              const sfx_select = new Audio("sfx/DeselectMod.wav");
               sfx_select.volume = 0.8;
               sfx_select.play();
               this.classList.remove('toggled-on'); // Remove toggled-on class
               this.setAttribute('data-active', 'false'); // Set as inactive
             } else {
-              const sfx_deselect = new Audio("sfx/DeselectMod.wav");
+              const sfx_deselect = new Audio("sfx/SelectMod.wav");
               sfx_deselect.volume = 0.8;
               sfx_deselect.play();
               this.classList.add('toggled-on'); // Add toggled-on class
