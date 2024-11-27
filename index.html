@@ -5,11 +5,21 @@
         <link rel="stylesheet" href="ps.css">
     </head>
     <body>
-        <h1>Hectopascal</h1>
-        <h3>A scoring tool for the Roblox game Pressure</h3>
-        <div class="cont">
+        <div class="heading">
+            <h1>Hectopascal</h1>
+            <h3>A scoring tool for the Roblox game Pressure</h3>
+            <div class="modeselect">
+                <span>Regular</span>
+                <label class="switch">
+                    <input type="checkbox" id="stateswitch"><span class="slider round"></span>
+                </label>
+                <span>Endless</span>
+            </div>
+        </div>
+        <div class="heading-hidden">^</div>
+        <div class="cont" id="first-cont">
             <input class="mainheader" placeholder="Give it a cool title...">
-            <div class="headerbox">
+            <div class="headerbox" id="main_content">
                 <div class="subdiv">
                     <p>
                         Score:<br>
@@ -17,7 +27,15 @@
                     </p>
                 </div>
                 <div class="subdiv">
+                    <p>
+                        Rooms cleared:<br>
+                        <span id="roomdisplay">---</span>
+                        <div class="editvalue" id="roomset"><img src="mods/Edit.png"></div>
+                    </p>
+                </div>
+                <div class="subdiv">
                     <p>Time: <br><span id="TimeDisplay">--:--.---</span></p>
+                    <div class="editvalue" id="timeset"><img src="mods/Edit.png"></div>
                 </div>
             </div>
             <div class="headerbox" id="displaymodscontainer">
@@ -38,7 +56,6 @@
                 <button id="swlow" title="Lower the frequency of updates to the score and timer. Precision stays the same.">Enable Low<br>Performance</button>
                 
             </div>
-            <p class="modsubtext" id="timeset" data-active="false"><small>Time inaccurate? Click here to manually set your time.</small></p>
         </div>
         <div class="cont">
             <h3>Modifier Select</h3>

@@ -4,10 +4,13 @@ let score = 0
 let timerIsRunning = false
 let elapsedTime = 0
 let LowPerformance = false
+let EndlessIsActive = false
+let HeaderHidden = false
 
 
 let startTime = new Date();
 let count = 0
+let rooms = 0
 
 // Mod Combos
 const mc1 = ['2', '3', '4'];
@@ -45,6 +48,9 @@ function ArrComp(a,b) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+    document.querySelector('.switch').classList.remove('active');
+    document.querySelector("#stateswitch").checked = false;
+    document.querySelectorAll(".subdiv")[1].style.display = "none";
     // Stopwatch Buttons
     let startB = document.getElementById('swstart');
     let stopB = document.getElementById('swstop');
@@ -53,6 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('.modifiermultvalue').textContent = "x1.00";
     const ActiveMods = document.querySelector('.displaymods');
     const placeholder = document.querySelector('.nomods');
+    let roomcalib = document.querySelector('#roomset');
     let timecalib = document.querySelector('#timeset');
     MultScore = 100;
     updateActivatedMods();
@@ -62,16 +69,17 @@ document.addEventListener('DOMContentLoaded', function () {
       // Get all active mods
       const activeMods = document.querySelectorAll('.modicon[data-active="true"]');
       const dataIds = Array.from(activeMods).map(element => element.getAttribute('data-id'));
-      const activeModsRelevant = dataIds.filter(item => !["12","13","14","15","16","17","18","19"].includes(item));
+      const activeModsRelevant = dataIds.filter(item => !["12","13","14","15","16","17","18","19","999"].includes(item));
 
       // Clear the activated container
       ActiveMods.innerHTML = '';
 
       // If there are no active images, show the placeholder
       if (activeMods.length === 0) {
-        placeholder.style.display = 'block';
-        ActiveMods.appendChild(placeholder);
         document.getElementById("modcomptext").innerHTML = "No Mod";
+        if (!EndlessIsActive) {
+          ActiveMods.innerHTML = `<span class="nomods"><img src="mods/NoMod.png" class="modiconclone toggled-on"></span>`;
+        }
       } else {
         if (activeMods.length === 1) {
           document.getElementById("modcomptext").innerHTML = mod_full[mod_dict[activeMods[0].getAttribute('data-id')]];
@@ -121,20 +129,55 @@ document.addEventListener('DOMContentLoaded', function () {
           ActiveMods.appendChild(clonedImg);
         });
       }
+      if (EndlessIsActive) {
+        EndlessNode = document.querySelectorAll('.modicon')[0].cloneNode()
+        EndlessNode.src = "mods/Inf.png"
+        EndlessNode.setAttribute("data-id", "999")
+        EndlessNode.classList.remove('modicon');
+        EndlessNode.classList.add('modiconclone');
+        EndlessNode.classList.add('toggled-on');
+        if (activeMods.length > 5) {
+          EndlessNode.style.margin = "0px 3px 0px 3px"
+          if (activeMods.length > 9) {
+            EndlessNode.style.margin = "0px 1px 0px 1px"
+          }
+        }
+        ActiveMods.appendChild(EndlessNode)
+      }
     }
 
     // Refreshing the score whenever Mult or Time updates
     function setScore() {
-      if ((count/1000) < 7200) {
-        score = Math.floor((0.0339506175 * ((count/1000-7200) ** (2))) * (MultScore/100)).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+      // "count" = time in ms
+      if (EndlessIsActive) {
+        if (rooms === 0 || count === 0) {
+          document.getElementById('scoredisplay').innerHTML = "-,---,---";
+          return;
+        }
+        // Time (sec) per room
+        let speed = (count/1000)/rooms
+        if (speed > 16) {
+          speed = 16
+        }
+        if (rooms < 100) {
+          speed_score = (15625 * ((speed-16) ** (2))) * rooms/100
+        } else {
+          speed_score = (15625 * ((speed-16) ** (2)))
+        }
+        score = Math.floor((speed_score + (rooms*1000)) * (MultScore/100)).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
       } else {
-        score = 0
-      }
-      if (count === 0) {
-        document.getElementById('scoredisplay').innerHTML = "-,---,---";
-        return;
+        if ((count/1000) < 7200) {
+          score = Math.floor((0.0339506175 * ((count/1000-7200) ** (2))) * (MultScore/100)).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+        } else {
+          score = 0
+        }
+        if (count === 0) {
+          document.getElementById('scoredisplay').innerHTML = "-,---,---";
+          return;
+        }
       }
       document.getElementById('scoredisplay').innerHTML = score;
+      
     }
 
     // Function to calculate and update the total score
@@ -259,8 +302,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Stopwatch Main Function
     function stopWatchUpdate() {
       if (timerIsRunning) {
-        document.getElementById('timeset').innerHTML = ""
-        document.getElementById('swreset').innerHTML = `Stop and Reset`;
+        document.getElementById('timeset').style.display = "none"
+        document.getElementById('swreset').innerHTML = `Stop and<br>Reset`;
         elapsedTime = Date.now() - startTime;
         count = Math.floor(elapsedTime)
 
@@ -277,7 +320,7 @@ document.addEventListener('DOMContentLoaded', function () {
         setScore();
       } else {
         document.getElementById('swreset').innerHTML = `Reset`;
-        document.getElementById('timeset').innerHTML = "<small>Time inaccurate? Click here to manually set your time.</small>"
+        document.getElementById('timeset').style.display = "inline"
         if (count === 0) {
           document.getElementById('swstart').innerHTML = "Start";
         } else {
@@ -322,7 +365,7 @@ document.addEventListener('DOMContentLoaded', function () {
       let s = Math.floor((count /  1000)) % 60;
       let m = Math.floor((count / 60000));
 
-      document.getElementById('TimeDisplay').innerHTML = m.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + s.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + ms.toLocaleString('en-US', {minimumIntegerDigits: 3, useGrouping:false});
+      document.getElementById('TimeDisplay').innerHTML = m.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + s.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + "." + ms.toLocaleString('en-US', {minimumIntegerDigits: 3, useGrouping:false});
       document.getElementById('swstop').innerHTML = "Retime at<br>this point"
       
       setScore()
@@ -370,10 +413,34 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById("swstart").style.display="none"
         document.getElementById("swstop").style.display="none"
 
-        document.getElementById('TimeDisplay').innerHTML = m.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + s.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + ms.toLocaleString('en-US', {minimumIntegerDigits: 3, useGrouping:false});
+        document.getElementById('TimeDisplay').innerHTML = m.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + s.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + "." + ms.toLocaleString('en-US', {minimumIntegerDigits: 3, useGrouping:false});
 
         setScore()
     });
+    
+    roomcalib.addEventListener('click', (event) => {
+      console.log("Clicked")
+      //if (event.target.tagName == "IMG") {return;};
+      console.log("Consisted")
+      const sfx_button_1 = new Audio("sfx/Button1.wav");
+      sfx_button_1.volume = 0.8;
+      sfx_button_1.play();
+      let userInput = prompt("Enter the amount of rooms you have cleared:")
+      if (userInput === null) {
+        console.log("Input cancelled");
+        return;
+      }
+
+      let newTime = parseFloat(userInput);
+      if (isNaN(newTime) || newTime < 0) {
+        alert("Invalid input. Please enter a valid number.");
+        return;
+      }
+
+      rooms = newTime;
+      document.getElementById("roomdisplay").innerHTML = rooms;
+      setScore()
+  });
 
     lowPerfB.addEventListener('click', function () {
         LowPerformance = !LowPerformance
@@ -386,11 +453,57 @@ document.addEventListener('DOMContentLoaded', function () {
           document.getElementById('swlow').innerHTML = "Enable Low<br>Performance";
         }
     });
-    
+
+    document.querySelector('.switch').addEventListener('click', (event) => {
+      if (event.target == document.querySelector('.slider')) return;
+      EndlessIsActive = !EndlessIsActive
+      resetAllMods()
+      updateActivatedMods()
+      const rootv = document.documentElement;
+      RoomNode = document.querySelectorAll(".subdiv")[1]
+      document.querySelector('#roomdisplay').innerHTML = "---";
+      const sfx_button_1 = new Audio("sfx/Button1.wav");
+      sfx_button_1.volume = 0.8;
+      sfx_button_1.play();
+      // Hiding + Resetting Mods
+      // To be hidden
+      [3,19].forEach(ModID => {
+        let TargetNode = document.querySelector(`.modicon[data-id='`+ModID.toString()+`']`).closest('.tooltip');
+        if (!EndlessIsActive) {
+          TargetNode.style.display = "inline"
+        } else {
+          TargetNode.style.display = "none"
+        }
+      });
+      // Background Color + Showing Room# Node
+      if (!EndlessIsActive) {
+        // REGULAR
+        rootv.style.setProperty('--dark_bg', '#000a24');
+        rootv.style.setProperty('--bright_bg', '#002652');
+        RoomNode.style.display = "none"
+      } else {
+        // ENDLESS
+        rootv.style.setProperty('--dark_bg', '#240000');
+        rootv.style.setProperty('--bright_bg', '#520000');
+        RoomNode.style.display = "initial"
+      }
+    });
+
+    document.querySelector('.heading-hidden').addEventListener('click', (event) => {
+      if (!HeaderHidden) {
+        document.querySelector(".heading").style.height = "0px";
+        document.querySelector('.heading-hidden').style.rotation = "180deg";
+      } else {
+        document.querySelector(".heading").style.height = "180px";
+        document.querySelector('.heading-hidden').style.rotation = "0deg";
+      }
+      HeaderHidden = !HeaderHidden
+    });
+
     document.querySelector('.resetbutton').addEventListener('click', resetAllMods);
 
     // Select all <img> and <button> elements for hover sfx
-    const hoverables = document.querySelectorAll('img, button');
+    const hoverables = document.querySelectorAll('img, button, label, .editvalue');
     hoverables.forEach(element => {
         element.addEventListener('mouseenter', playHoverSound);
     });
