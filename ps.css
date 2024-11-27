@@ -47,9 +47,12 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 235px;
+    background: rgba(15, 15, 15, 0.5);
+    padding: 5px;
+    border-radius: 99px;
 }
 .modeselect > span {
-    width: 100px;
     padding-left: 7px;
     padding-right: 7px;
     text-align: center;
@@ -179,7 +182,7 @@ input:checked + .slider:before {
     padding-bottom: 5px;
     background-color: #00000000;
     border: 1px solid #00000000;
-    border-bottom: 1px solid #ffffff80;
+    border-bottom: 2px dotted #ffffff80;
     text-align: center;
     font-size: x-large;
     font-weight: bold;
@@ -194,7 +197,6 @@ input:checked + .slider:before {
     margin: 10px
 }
 .headerbox > * {
-    height: 37px;
     padding-left: 30px;
     padding-right: 30px;
 }
