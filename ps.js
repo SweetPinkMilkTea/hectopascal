@@ -160,9 +160,9 @@ document.addEventListener('DOMContentLoaded', function () {
           speed = 16
         }
         if (rooms < 100) {
-          speed_score = (15625 * ((speed-16) ** (2))) * rooms/100
+          speed_score = (15625 * ((speed-20) ** (2))) * rooms/100
         } else {
-          speed_score = (15625 * ((speed-16) ** (2)))
+          speed_score = (15625 * ((speed-20) ** (2)))
         }
         score = Math.floor((speed_score + (rooms*1000)) * (MultScore/100)).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
       } else {
@@ -454,7 +454,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    document.querySelector('.switch').addEventListener('click', (event) => {
+    document.querySelector('.switchchoice').addEventListener('click', (event) => {
       if (event.target == document.querySelector('.slider')) return;
       EndlessIsActive = !EndlessIsActive
       resetAllMods()
