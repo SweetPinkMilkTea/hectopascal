@@ -3,10 +3,16 @@
     src: url(font/Torus-Regular.otf) format("truetype");
   }
 
+:root {
+    --dark_bg: #000a24;
+    --bright_bg: #002652;
+}  
+
 body {
-    background: linear-gradient(315deg, #000a24,#000a24, #002652, #000000,#000a24, #000a24);
+    background: linear-gradient(315deg, var(--dark_bg),var(--dark_bg), var(--bright_bg), #000000,var(--dark_bg), var(--dark_bg));
     background-size: 600% 600%;
     animation: BGAnimation 60s ease infinite;
+    transition: var(--dark_bg) 0.5s ease, var(--bright_bg) 0.5s ease;
 }
 @keyframes BGAnimation {
     0%{background-position:25% 25%}
@@ -25,18 +31,121 @@ h1, #ft_text {
 a {
     color: #ff00bf;
 }
+.heading {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    overflow: hidden;
+    height: 180px;
+    transition: height 0.3s ease;
+}
+.heading > * {
+    width: 100%;
+    margin-bottom: 10px;
+}
+.modeselect {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 235px;
+    background: rgba(15, 15, 15, 0.5);
+    padding: 5px;
+    border-radius: 99px;
+}
+.modeselect > span {
+    padding-left: 7px;
+    padding-right: 7px;
+    text-align: center;
+}
+.switchchoice {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000000cc;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
+.switchchoice > span {
+    padding: 10px;
+    color: #000000;
+}
+.switch {
+    position: relative;
+}
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+.slider {
+    color: #000000cc;
+    position: static;
+    display: inline-block;
+    cursor: pointer;
+    width: 170px;
+    height: 34px;
+    border-radius: 99px;
+    background-color: #3553f9;
+    transition: 0.2s cubic-bezier(0.157, 0.885, 0.32, 1.275);
+}
+.slider:before {
+    position: relative;
+    display: inline-block;
+    content: "";
+    left: 5px;
+    top: 4px;
+    height: 26px;
+    width: 85px;
+    border-radius: 99px;
+    background-color: rgba(255, 255, 255, 0.75);
+    transition: 0.1s cubic-bezier(0.01, 0.71, 0.27, 1.01);
+}
+.switch > input {
+    margin: 0px;
+}
+input:checked + .slider {
+    background-color: #ff0000;
+}
+  
+input:focus + .slider {
+    box-shadow: 0 0 1px #ffffff;
+}
+  
+input:checked + .slider:before {
+    transform: translateX(76px);
+}
+.heading-hidden {
+    display: flex;
+    width: 15px;
+    height: 15px;
+    background: #ffffff77;
+    color: #000000;
+    border-radius: 99px;
+    justify-content: center;
+    cursor: pointer;
+}
+.heading-hidden::before {
+    width: 5px;
+    height: 5px;
+    background: #000000;
+}
+
 #ft_text {
     font-size: small;
     margin-top: 20px;
 }
 .subdiv{
-    width: 50%;
     height: 60px;
 }
 .subdiv > p {
-    margin: 0px
+    margin: 0px;
+    display: inline;
 }
-.subdiv:first-child {
+.subdiv:not(:last-child) {
     text-align: end;
     border-right: 1px;
     border-left: 0px;
@@ -45,18 +154,35 @@ a {
     border-image: linear-gradient(to bottom, #00000000 0%, #ffffff 50%, #00000000 100%) 1;
     border-style: solid;
 }
-#scoredisplay, #TimeDisplay {
+.subdiv:not(:first-child):not(:last-child) {
+    text-align: center;
+}
+#scoredisplay, #TimeDisplay, #roomdisplay {
     display: inline-block;
     margin: 0px;
     height: 40px;
     font-size: 30px;
 }
+.editvalue {
+    display: inline;
+    cursor: pointer;
+}
+.editvalue > img {
+    height: 20px;
+    opacity: 0.3;
+    transition: opacity 0.3 ease;
+}
+.editvalue > img:hover {
+    height: 20px;
+    opacity: 0.6;
+}
+
 .mainheader {
     width: 90%;
     padding-bottom: 5px;
     background-color: #00000000;
     border: 1px solid #00000000;
-    border-bottom: 1px solid #ffffff80;
+    border-bottom: 2px dotted #ffffff80;
     text-align: center;
     font-size: x-large;
     font-weight: bold;
@@ -71,7 +197,6 @@ a {
     margin: 10px
 }
 .headerbox > * {
-    height: 37px;
     padding-left: 30px;
     padding-right: 30px;
 }
@@ -83,6 +208,9 @@ a {
     background-color: rgba(15, 15, 15, 0.5);
     max-width: 80vw;
     transition: 0.2s cubic-bezier(0.157, 0.885, 0.32, 1.275);
+}
+#first-cont {
+    margin-top: 0;
 }
 .cont > p, h3 {
     text-align: center;
