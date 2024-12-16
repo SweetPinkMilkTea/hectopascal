@@ -11,6 +11,7 @@ let HeaderHidden = false
 let startTime = new Date();
 let count = 0
 let rooms = 0
+let bonus = 0
 
 // Mod Combos
 const mc1 = ['2', '3', '4'];
@@ -21,8 +22,8 @@ const mc4 = ['7', '21'];
 const mc5 = ['21', '22'];
 const mc6 = ['10', '11'];
 const mc7 = ['3', '6'];
-const mod_dict = {'1':"SU",'2':"BL",'3':"PF",'4':"CP",'5':"SA",'6':"AN",'7':"HA",'8':"LO",'9':"DF",'21':"TS",'22':"SD",'10':"SN",'11':"PA",'12':"2P",'13':"3P",'14':"4P",'15':"5P",'16':"6P",'17':"7P",'18':"8P+",'19':" I"}
-const mod_full = {"SU":"Sensory Underload","BL":"Bargainless","PF":"Perfect","CP":"Cleithrophobia-phobia","SA":"Safety Averse","AN":"Anchored","HA":"Hyperactive","LO":"Lock-On","DF":"Deafened","TS":"Thrillseeker","SD":"Scared of the Dark","SN":"Safety Net","PA":"Premium Assistance","2P":"Friendship-Power","3P":"Friendship-Power","4P":"Group of Sweats","5P":"Group of Sweats","6P":"Group of Sweats","7P":"Group of Sweats","8P+":"This one sucks, doesn't it?"," I":"...what?",}
+const mod_dict = {'1':"SU",'2':"BL",'3':"PF",'4':"CP",'5':"SA",'6':"AN",'7':"HA",'8':"LO",'9':"DF",'21':"TS",'22':"SD",'10':"SN",'11':"PA",'12':"2P",'13':"3P",'14':"4P",'15':"5P",'16':"6P",'17':"7P",'18':"8P+",'19':" I","41":"D1","42":"D2","43":"D3"}
+const mod_full = {"SU":"Sensory Underload","BL":"Bargainless","PF":"Perfect","CP":"Cleithrophobia-phobia","SA":"Safety Averse","AN":"Anchored","HA":"Hyperactive","LO":"Lock-On","DF":"Deafened","TS":"Thrillseeker","SD":"Scared of the Dark","SN":"Safety Net","PA":"Premium Assistance","2P":"Friendship-Power","3P":"Friendship-Power","4P":"Group of Sweats","5P":"Group of Sweats","6P":"Group of Sweats","7P":"Group of Sweats","8P+":"This one sucks, doesn't it?"," I":"...what?","D1":"Data-Driven","D2":"Data-Driven","D3":"Data-Driven"}
 
 // SFX
 const sfx_hover = new Audio('sfx/Hover.wav');
@@ -58,6 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const dialog_cancelBtn_r = document.getElementById('cancel-btn-r');
     const form_t = document.getElementById('dialog-form-time');
     const form_r = document.getElementById('dialog-form-room');
+    document.querySelector('#endlessexclusive').style.display = "none"
     // Stopwatch Buttons
     let startB = document.getElementById('swstart');
     let stopB = document.getElementById('swstop');
@@ -76,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // Get all active mods
       const activeMods = document.querySelectorAll('.modicon[data-active="true"]');
       const dataIds = Array.from(activeMods).map(element => element.getAttribute('data-id'));
-      const activeModsRelevant = dataIds.filter(item => !["12","13","14","15","16","17","18","19","999"].includes(item));
+      const activeModsRelevant = dataIds.filter(item => !["12","13","14","15","16","17","18","19","41","42","43","999"].includes(item));
 
       // Clear the activated container
       ActiveMods.innerHTML = '';
@@ -171,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
           speed_score = (15625 * ((speed-20) ** (2)))
         }
-        score = Math.floor((speed_score + (rooms*1000)) * (MultScore/100)).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+        score = Math.floor((speed_score + (rooms*1000)) * (MultScore/100) + bonus).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
       } else {
         if ((count/1000) < 7200) {
           score = Math.floor((0.0339506175 * ((count/1000-7200) ** (2))) * (MultScore/100)).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
@@ -205,7 +207,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (["12","13","14","15","16","17","18"].includes(div.getAttribute('data-id'))) {
               MultiplayerAmplifier = MultiplayerAmplifier + RelevantMods
             }
-            MultScore += ModScore * MultiplayerAmplifier; // Add score if image is toggled on
+            MultScore += ModScore * MultiplayerAmplifier; // Add score if mod is toggled on
           }
         }
       );
@@ -217,8 +219,28 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       if (mod2.getAttribute('data-active') === 'true') {
         MultScore /= 10;
-      }      
-      // Update the score display
+      }
+      let hasBonus = false;
+      const mod3 = document.querySelector('.modicon[data-id="41"]');
+      const mod4 = document.querySelector('.modicon[data-id="42"]');
+      const mod5 = document.querySelector('.modicon[data-id="43"]');
+      if (mod3.getAttribute('data-active') === 'true') {
+        bonus = 100000;
+        hasBonus = true;
+      }
+      if (mod4.getAttribute('data-active') === 'true') {
+        bonus = 200000;
+        hasBonus = true;
+      }
+      if (mod5.getAttribute('data-active') === 'true') {
+        bonus = 300000;
+        hasBonus = true;
+      }
+      if (!hasBonus) {
+        bonus = 0
+      }
+      
+      // Update the mult display
       document.querySelector('.modifiermultvalue').textContent =  `x${(MultScore / 100).toFixed(2)}`;
       if (MultScore === 100) {
         document.querySelector('.modifiermultvalue').style.color = 'white';
@@ -453,9 +475,7 @@ document.addEventListener('DOMContentLoaded', function () {
     },)
 
     roomcalib.addEventListener('click', (event) => {
-      console.log("Clicked")
       //if (event.target.tagName == "IMG") {return;};
-      console.log("Consisted")
       const sfx_button_1 = new Audio("sfx/Button1.wav");
       sfx_button_1.volume = 0.8;
       sfx_button_1.play();
@@ -543,12 +563,16 @@ document.addEventListener('DOMContentLoaded', function () {
         // REGULAR
         rootv.style.setProperty('--dark_bg', '#000a24');
         rootv.style.setProperty('--bright_bg', '#002652');
-        RoomNode.style.display = "none"
+        RoomNode.style.display = "none";
+        document.querySelector('#modanecdote').innerHTML = "Multiplayer Mods get Bonus-Mult per Harder/Chaos Mod.";
+        document.querySelector('#endlessexclusive').style.display = "none"
       } else {
         // ENDLESS
         rootv.style.setProperty('--dark_bg', '#240000');
         rootv.style.setProperty('--bright_bg', '#520000');
-        RoomNode.style.display = "initial"
+        RoomNode.style.display = "initial";
+        document.querySelector('#modanecdote').innerHTML = "Multiplayer Mods get Bonus-Mult per Harder/Chaos Mod.<br>Time and Rooms are taken by the first player that dies without reviving.";
+        document.querySelector('#endlessexclusive').style.display = "flex"
       }
     });
 
