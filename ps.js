@@ -480,24 +480,6 @@ document.addEventListener('DOMContentLoaded', function () {
       sfx_button_1.volume = 0.8;
       sfx_button_1.play();
       dialog_room.showModal();
-      /*
-      let userInput = prompt("Enter the amount of rooms you have cleared:")
-      if (userInput === null) {
-        console.log("Input cancelled");
-        return;
-      }
-
-      let newTime = parseFloat(userInput);
-      if (isNaN(newTime) || newTime < 0) {
-        alert("Invalid input. Please enter a valid number.");
-        return;
-      }
-
-      rooms = newTime;
-      document.getElementById("roomdisplay").innerHTML = rooms;
-      
-      setScore()
-      */
     });
     
     form_r.addEventListener('submit', (event) => {
