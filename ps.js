@@ -52,6 +52,13 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('.switch').classList.remove('active');
     document.querySelector("#stateswitch").checked = false;
     document.querySelectorAll(".subdiv")[1].style.display = "none";
+    document.querySelector('#endlessexclusive').style.display = "none";
+    const dialog_time = document.getElementById('input-dialog-time');
+    const dialog_room = document.getElementById('input-dialog-room');
+    const dialog_cancelBtn_t = document.getElementById('cancel-btn-t');
+    const dialog_cancelBtn_r = document.getElementById('cancel-btn-r');
+    const form_t = document.getElementById('dialog-form-time');
+    const form_r = document.getElementById('dialog-form-room');
     document.querySelector('#endlessexclusive').style.display = "none"
     // Stopwatch Buttons
     let startB = document.getElementById('swstart');
@@ -410,57 +417,95 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById("swstop").style.display="inline"
     });
 
+    dialog_cancelBtn_t.addEventListener('click', () => {
+        const sfx_button_1 = new Audio("sfx/Button1.wav");
+        sfx_button_1.volume = 0.8;
+        sfx_button_1.play();
+      dialog_time.close();
+    })
+
+    dialog_cancelBtn_r.addEventListener('click', () => {
+        const sfx_button_1 = new Audio("sfx/Button1.wav");
+        sfx_button_1.volume = 0.8;
+        sfx_button_1.play();
+      dialog_room.close();
+    })
+
     timecalib.addEventListener('click', function () {
         const sfx_button_1 = new Audio("sfx/Button1.wav");
         sfx_button_1.volume = 0.8;
         sfx_button_1.play();
-        let userInput = prompt("Enter time in milliseconds:")
-        if (userInput === null) {
-          console.log("Input cancelled");
-          return;
-        }
+        dialog_time.showModal();
+    });
+    
+    form_t.addEventListener('submit', (event) => {
+      const sfx_button_1 = new Audio("sfx/Button1.wav");
+      sfx_button_1.volume = 0.8;
+      sfx_button_1.play();
+        event.preventDefault(); // Prevent default form submission behavior
+        const n1 = parseInt(document.getElementById('number1-t').value, 10);
+        const n2 = parseInt(document.getElementById('number2-t').value, 10);
+        const n3 = parseInt(document.getElementById('number3-t').value, 10);
 
-        let newTime = parseFloat(userInput);
+        let newTime = n1*60*1000 + n2*1000 + n3
+        console.log(newTime)
+
         if (isNaN(newTime) || newTime < 0) {
-          alert("Invalid input. Please enter a valid number.");
-          return;
+            dialog_time.close();
+            alert("Invalid input. Please enter a valid number.");
+            return;
         }
 
+        // Perform further processing with the numbers
         count = newTime
-        
+          
         let ms = count % 1000;
         let s = Math.floor((count /  1000)) % 60;
         let m = Math.floor((count / 60000));
 
-        document.getElementById("swstart").style.display="none"
-        document.getElementById("swstop").style.display="none"
-        document.getElementById('swreset').innerHTML = `Reset`
+        document.getElementById("swstart").style.display="none";
+        document.getElementById("swstop").style.display="none";
+        document.getElementById('swreset').innerHTML = `Reset`;
 
         document.getElementById('TimeDisplay').innerHTML = m.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + s.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + "." + ms.toLocaleString('en-US', {minimumIntegerDigits: 3, useGrouping:false});
 
-        setScore()
-    });
-    
+        setScore();
+
+      // Close the dialog after submission
+      dialog_time.close();
+    },)
+
     roomcalib.addEventListener('click', (event) => {
       //if (event.target.tagName == "IMG") {return;};
       const sfx_button_1 = new Audio("sfx/Button1.wav");
       sfx_button_1.volume = 0.8;
       sfx_button_1.play();
-      let userInput = prompt("Enter the amount of rooms you have cleared:")
-      if (userInput === null) {
-        console.log("Input cancelled");
-        return;
-      }
+      dialog_room.showModal();
+    });
+    
+    form_r.addEventListener('submit', (event) => {
+      const sfx_button_1 = new Audio("sfx/Button1.wav");
+      sfx_button_1.volume = 0.8;
+      sfx_button_1.play();
+      event.preventDefault(); // Prevent default form submission behavior
+      const n1 = parseInt(document.getElementById('number1-r').value, 10);
 
-      let newTime = parseFloat(userInput);
+      let newTime = n1
+
       if (isNaN(newTime) || newTime < 0) {
-        alert("Invalid input. Please enter a valid number.");
-        return;
+          dialog_room.close();
+          alert("Invalid input. Please enter a valid number.");
+          return;
       }
 
-      rooms = newTime;
+      // Perform further processing with the numbers
+      rooms = newTime
       document.getElementById("roomdisplay").innerHTML = rooms;
-      setScore()
+
+      setScore();
+
+    // Close the dialog after submission
+    dialog_room.close();
   });
 
     lowPerfB.addEventListener('click', function () {
