@@ -433,6 +433,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     timecalib.addEventListener('click', function () {
         const sfx_button_1 = new Audio("sfx/Button1.wav");
+        document.getElementById('number1-t').value = "";
+        document.getElementById('number2-t').value = "";
+        document.getElementById('number3-t').value = "";
         sfx_button_1.volume = 0.8;
         sfx_button_1.play();
         dialog_time.showModal();
@@ -478,6 +481,7 @@ document.addEventListener('DOMContentLoaded', function () {
     roomcalib.addEventListener('click', (event) => {
       //if (event.target.tagName == "IMG") {return;};
       const sfx_button_1 = new Audio("sfx/Button1.wav");
+      document.getElementById('number1-r').value = "";
       sfx_button_1.volume = 0.8;
       sfx_button_1.play();
       dialog_room.showModal();
