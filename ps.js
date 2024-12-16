@@ -526,13 +526,15 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
     lowPerfB.addEventListener('click', function () {
-        LowPerformance = !LowPerformance
+        LowPerformance = !LowPerformance;
         const sfx_button_1 = new Audio("sfx/Button1.wav");
         sfx_button_1.volume = 0.8;
         sfx_button_1.play();
         if (LowPerformance) {
+          document.body.style.animation = "none";
           document.getElementById('swlow').innerHTML = "Disable Low<br>Performance";
         } else {
+          document.body.style.animation = "BGAnimation 60s ease infinite";
           document.getElementById('swlow').innerHTML = "Enable Low<br>Performance";
         }
     });
