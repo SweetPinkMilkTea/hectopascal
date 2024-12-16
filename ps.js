@@ -445,9 +445,10 @@ document.addEventListener('DOMContentLoaded', function () {
         event.preventDefault(); // Prevent default form submission behavior
         const n1 = parseInt(document.getElementById('number1-t').value, 10);
         const n2 = parseInt(document.getElementById('number2-t').value, 10);
-        const n3 = parseInt(document.getElementById('number2-t').value, 10);
+        const n3 = parseInt(document.getElementById('number3-t').value, 10);
 
         let newTime = n1*60*1000 + n2*1000 + n3
+        console.log(newTime)
 
         if (isNaN(newTime) || newTime < 0) {
             dialog_time.close();
