@@ -19,9 +19,57 @@ body {
     50%{background-position:75% 75%}
     100%{background-position:25% 25%}
 }
-
+dialog {
+    background: #000000;
+    border-radius: 10px;
+    border: 1px solid white;
+    padding: 20px;
+    width: 80%;
+    max-width: 500px;
+}
+dialog > form > h2 {
+    text-align: center;
+    margin-top: 0;
+}
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}
+.dialog_button {
+    margin-top: 20px;
+    justify-content: space-between;
+}
+.dialog_button_row {
+    height: max-content;
+    display: flex;
+    justify-content: center;
+}
+.dialog_button_row > button {
+    text-align: center;
+    margin: 0;
+}
+.dialogcontent {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+.dialogcontent > input {
+    text-align: center;
+    width: 50px;
+    margin: 0 10px 0 20px;
+    background-color: #000000;
+    border: 1px dashed #ffffff55;
+    border-radius: 5px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
 /* Main Contents */
-h1, h3, p, div, span, button, .mainheader{
+h1, h3, p, div, span, button, dialog, .mainheader, input {
     font-family: "Torus";
     color: white;
 }

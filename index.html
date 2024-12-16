@@ -50,6 +50,37 @@
                 <span class="modsubtext" id="modcomptext">No Mod</span>
             </div>
         </div>
+        <dialog id="input-dialog-time">
+            <form method="dialog" id="dialog-form-time">
+              <h2>Enter your Time:</h2>
+              <div class="dialogcontent">
+                <input type="number" id="number1-t" name="number1" required>
+                <label for="number1">min</label>
+                <input type="number" id="number2-t" name="number2" required>
+                <label for="number2">sec</label>
+                <input type="number" id="number3-t" name="number3" required>
+                <label for="number3">ms</label>
+              </div>
+              <div class="dialog_button_row">
+                <button id="cancel-btn-t" type="button" class="dialog_button">Cancel</button>
+                <button type="submit" class="dialog_button">Submit</button>
+              </div>
+            </form>
+        </dialog>
+        <dialog id="input-dialog-room">
+            <form method="dialog" id="dialog-form-room">
+                <h2>Enter the amount of Rooms you have cleared:</h2>
+                <div class="dialogcontent">
+                    <input type="number" id="number1-r" name="number1" required>
+                </div>
+                <div class="dialog_button_row">
+                    <div class="buttons">
+                        <button id="cancel-btn-r" type="button">Cancel</button>
+                        <button type="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </dialog>
         <div class="cont">
             <h3>Stopwatch Controls</h3>
             <div class="headerbox">
