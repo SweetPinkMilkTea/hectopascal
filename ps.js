@@ -421,14 +421,23 @@ document.addEventListener('DOMContentLoaded', function () {
         const sfx_button_1 = new Audio("sfx/Button1.wav");
         sfx_button_1.volume = 0.8;
         sfx_button_1.play();
-      dialog_time.close();
+        dialog_time.classList.remove('visible');
+        dialog_time.classList.add('hidden');
+        setTimeout(() => {
+          dialog_time.close();
+          
+        }, 500); // Match the duration of the transition
     })
 
     dialog_cancelBtn_r.addEventListener('click', () => {
         const sfx_button_1 = new Audio("sfx/Button1.wav");
         sfx_button_1.volume = 0.8;
         sfx_button_1.play();
-      dialog_room.close();
+        dialog_room.classList.remove('visible');
+        dialog_room.classList.add('hidden');
+        setTimeout(() => {
+          dialog_room.close();
+        }, 500); // Match the duration of the transition
     })
 
     timecalib.addEventListener('click', function () {
@@ -436,6 +445,8 @@ document.addEventListener('DOMContentLoaded', function () {
         sfx_button_1.volume = 0.8;
         sfx_button_1.play();
         dialog_time.showModal();
+        dialog_time.classList.remove('hidden');
+        dialog_time.classList.add('visible');
     });
     
     form_t.addEventListener('submit', (event) => {
@@ -472,7 +483,12 @@ document.addEventListener('DOMContentLoaded', function () {
         setScore();
 
       // Close the dialog after submission
-      dialog_time.close();
+      dialog_time.classList.remove('visible');
+      dialog_time.classList.add('hidden');
+      setTimeout(() => {
+        dialog_time.close();
+        
+      }, 500); // Match the duration of the transition
     },)
 
     roomcalib.addEventListener('click', (event) => {
@@ -481,6 +497,8 @@ document.addEventListener('DOMContentLoaded', function () {
       sfx_button_1.volume = 0.8;
       sfx_button_1.play();
       dialog_room.showModal();
+      dialog_room.classList.remove('hidden');
+      dialog_room.classList.add('visible');
     });
     
     form_r.addEventListener('submit', (event) => {
@@ -505,7 +523,12 @@ document.addEventListener('DOMContentLoaded', function () {
       setScore();
 
     // Close the dialog after submission
-    dialog_room.close();
+      dialog_room.classList.remove('visible');
+      dialog_room.classList.add('hidden');
+      setTimeout(() => {
+        dialog_room.close();
+        
+      }, 500); // Match the duration of the transition
   });
 
     lowPerfB.addEventListener('click', function () {

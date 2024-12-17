@@ -26,6 +26,16 @@ dialog {
     padding: 20px;
     width: 80%;
     max-width: 500px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+dialog.visible {
+    transform: translateY(0%);
+    opacity: 1;
+}
+
+dialog.hidden {
+    transform: translateY(100%);
+    opacity: 0;
 }
 dialog > form > h2 {
     text-align: center;
