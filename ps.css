@@ -269,6 +269,7 @@ input:checked + .slider:before {
 }
 #first-cont {
     margin-top: 0;
+    position: relative;
 }
 #cont_bind {
     position: relative;
@@ -331,6 +332,31 @@ input:checked + .slider:before {
 }
 #modcomposition > * {
     margin: 0px;
+}
+.commit_to_save {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 5px 5px 5px 15px;
+    margin: 5px;
+    background-color: #ffffff54;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    clip-path: polygon(10% 0, 100% 0%, 100% 100%, 0% 100%);
+    cursor: pointer;
+    text-align: end;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.15s cubic-bezier(0.157, 0.885, 0.32, 1.275);
+}
+.commit_to_save:hover {
+    background-color: #ffffff77;
+}
+.commit_to_save:active {
+    background-color: #ffffffac;
+}
+.commit_to_save > span {
+    font-size: 12px;
 }
 .displaymods > * {
     margin: 0px 7px 0px 7px;
