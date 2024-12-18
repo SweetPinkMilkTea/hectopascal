@@ -270,6 +270,48 @@ input:checked + .slider:before {
 #first-cont {
     margin-top: 0;
 }
+#cont_bind {
+    position: relative;
+    margin-top: 10px;
+}
+.SaveSlotMarker {
+    position: absolute;
+    display: flex;
+    height: 100%;
+    width: 10%;
+    justify-content: center;
+    align-items: center;
+}
+.SaveSlotMarker > img {
+    height: 40%;
+}
+.save_body {
+    display: flex;
+    margin: 10px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+#save_body > * {
+    margin: 10px 10px 10px 10px;
+}
+.save_content {
+    display: flex;
+    flex-direction: row;
+}
+.saved_mods {
+    margin-left: 5px;
+    display: flex;
+    align-items: center;
+}
+.saved_mods > img {
+    height: 25px;
+}
+#capturedate_save {
+    font-size: 15px;
+    color: gray;
+    margin-top: 0;
+}
 .cont > p, h3 {
     text-align: center;
 }
