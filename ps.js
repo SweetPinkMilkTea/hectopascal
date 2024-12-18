@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (activeMods.length === 0) {
         document.getElementById("modcomptext").innerHTML = "No Mod";
         if (!EndlessIsActive) {
-          ActiveMods.innerHTML = `<span class="nomods"><img src="mods/NoMod.png" class="modiconclone toggled-on"></span>`;
+          ActiveMods.innerHTML = `<span class="nomods"><img src="res/NoMod.png" class="modiconclone toggled-on"></span>`;
         }
       } else {
         if (activeMods.length === 1) {
@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       if (EndlessIsActive) {
         EndlessNode = document.querySelectorAll('.modicon')[0].cloneNode()
-        EndlessNode.src = "mods/Inf.png"
+        EndlessNode.src = "res/Inf.png"
         EndlessNode.setAttribute("data-id", "999")
         EndlessNode.classList.remove('modicon');
         EndlessNode.classList.add('modiconclone');
@@ -340,7 +340,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let s = Math.floor((count /  1000)) % 60;
         let m = Math.floor((count / 60000));
 
-        document.getElementById('TimeDisplay').innerHTML = m.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + s.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + "." + ms.toLocaleString('en-US', {minimumIntegerDigits: 3, useGrouping:false});
+        document.getElementById('timedisplay').innerHTML = m.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + s.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + "." + ms.toLocaleString('en-US', {minimumIntegerDigits: 3, useGrouping:false});
         if (LowPerformance) {
           setTimeout(stopWatchUpdate, 500);
         } else {
@@ -394,7 +394,7 @@ document.addEventListener('DOMContentLoaded', function () {
       let s = Math.floor((count /  1000)) % 60;
       let m = Math.floor((count / 60000));
 
-      document.getElementById('TimeDisplay').innerHTML = m.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + s.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + "." + ms.toLocaleString('en-US', {minimumIntegerDigits: 3, useGrouping:false});
+      document.getElementById('timedisplay').innerHTML = m.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + s.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + "." + ms.toLocaleString('en-US', {minimumIntegerDigits: 3, useGrouping:false});
       document.getElementById('swstop').innerHTML = "Retime at<br>this point"
       
       setScore()
@@ -409,7 +409,7 @@ document.addEventListener('DOMContentLoaded', function () {
         count = 0
         elapsedTime = 0
         document.getElementById('swstop').innerHTML = `<span class="modsubtext">Stop</span>`
-        document.getElementById('TimeDisplay').innerHTML = "--:--.---";
+        document.getElementById('timedisplay').innerHTML = "--:--.---";
         document.getElementById('scoredisplay').innerHTML = "-,---,---";
         document.getElementById('swstart').innerHTML = "Start";
         document.getElementById("swstart").style.display="inline"
@@ -478,7 +478,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById("swstop").style.display="none";
         document.getElementById('swreset').innerHTML = `Reset`;
 
-        document.getElementById('TimeDisplay').innerHTML = m.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + s.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + "." + ms.toLocaleString('en-US', {minimumIntegerDigits: 3, useGrouping:false});
+        document.getElementById('timedisplay').innerHTML = m.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + s.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + "." + ms.toLocaleString('en-US', {minimumIntegerDigits: 3, useGrouping:false});
 
         setScore();
 

@@ -215,7 +215,7 @@ input:checked + .slider:before {
 .subdiv:not(:first-child):not(:last-child) {
     text-align: center;
 }
-#scoredisplay, #TimeDisplay, #roomdisplay {
+#scoredisplay, #timedisplay, #roomdisplay, #scoredisplay_save {
     display: inline-block;
     margin: 0px;
     height: 40px;
