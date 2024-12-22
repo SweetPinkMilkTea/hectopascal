@@ -300,12 +300,12 @@ input:checked + .slider:before {
     display: flex;
     flex-direction: row;
 }
-.saved_mods {
+#saved_mods {
     margin-left: 5px;
     display: flex;
     align-items: center;
 }
-.saved_mods > img {
+#saved_mods > img {
     height: 25px;
 }
 #capturedate_save {
