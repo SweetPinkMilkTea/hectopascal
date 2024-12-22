@@ -407,7 +407,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
           } else {
             document.getElementById("scoredisplay_save").innerHTML = '-,---,---';
-            document.getElementById("capturedate_save").innerHTML = '---/--/--';
+            document.getElementById("capturedate_save").innerHTML = 'Click the "Save this run" Button above to create a save here.';
             document.getElementById("saved_mods").innerHTML = "";
         }
     }
