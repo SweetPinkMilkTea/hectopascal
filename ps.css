@@ -7,7 +7,9 @@
     --dark_bg: #000a24;
     --bright_bg: #002652;
 }  
-
+*::selection {
+    background: #ffffff2f
+}
 body {
     background: linear-gradient(315deg, var(--dark_bg),var(--dark_bg), var(--bright_bg), #000000,var(--dark_bg), var(--dark_bg));
     background-size: 600% 600%;
@@ -26,6 +28,16 @@ dialog {
     padding: 20px;
     width: 80%;
     max-width: 500px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+dialog.visible {
+    transform: translateY(0%);
+    opacity: 1;
+}
+
+dialog.hidden {
+    transform: translateY(100%);
+    opacity: 0;
 }
 dialog > form > h2 {
     text-align: center;
@@ -205,7 +217,7 @@ input:checked + .slider:before {
 .subdiv:not(:first-child):not(:last-child) {
     text-align: center;
 }
-#scoredisplay, #TimeDisplay, #roomdisplay {
+#scoredisplay, #timedisplay, #roomdisplay, #scoredisplay_save {
     display: inline-block;
     margin: 0px;
     height: 40px;
@@ -218,7 +230,7 @@ input:checked + .slider:before {
 .editvalue > img {
     height: 20px;
     opacity: 0.3;
-    transition: opacity 0.3 ease;
+    transition: opacity 0.3s ease;
 }
 .editvalue > img:hover {
     height: 20px;
@@ -259,6 +271,61 @@ input:checked + .slider:before {
 }
 #first-cont {
     margin-top: 0;
+    position: relative;
+}
+#cont_bind {
+    position: relative;
+    margin-top: 10px;
+}
+.SaveSlotMarker, .SaveSlotDeletion {
+    position: absolute;
+    display: flex;
+    height: 100%;
+    width: 10%;
+    justify-content: center;
+    align-items: center;
+}
+.SaveSlotDeletion {
+    right: 0;
+    cursor: pointer;
+}
+.SaveSlotMarker > img {
+    height: 40%;
+}
+.SaveSlotDeletion > img {
+    height: 30%;
+    opacity: 25%;
+    transition: opacity 0.2s ease;
+}
+.SaveSlotDeletion > img:hover {
+    opacity: 0.6;
+}
+.save_body {
+    display: flex;
+    margin: 10px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+#save_body > * {
+    margin: 10px 10px 10px 10px;
+}
+.save_content {
+    display: flex;
+    flex-direction: row;
+}
+#saved_mods {
+    margin-left: 5px;
+    display: flex;
+    align-items: center;
+}
+#saved_mods > img {
+    height: 25px;
+}
+#capturedate_save {
+    font-size: 15px;
+    color: gray;
+    margin-top: 0;
 }
 .cont > p, h3 {
     text-align: center;
@@ -279,6 +346,31 @@ input:checked + .slider:before {
 }
 #modcomposition > * {
     margin: 0px;
+}
+.commit_to_save {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 5px 5px 5px 15px;
+    margin: 5px;
+    background-color: #ffffff54;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    clip-path: polygon(10% 0, 100% 0%, 100% 100%, 0% 100%);
+    cursor: pointer;
+    text-align: end;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.15s cubic-bezier(0.157, 0.885, 0.32, 1.275);
+}
+.commit_to_save:hover {
+    background-color: #ffffff77;
+}
+.commit_to_save:active {
+    background-color: #ffffffac;
+}
+.commit_to_save > span {
+    font-size: 12px;
 }
 .displaymods > * {
     margin: 0px 7px 0px 7px;
@@ -391,7 +483,6 @@ input:checked + .slider:before {
     clip-path: polygon(10% 0, 100% 0%, 90% 100%, 0% 100%);
     text-align: center;
     height: 50px;
-    margin: 25px;
     padding: 0px;
 }
 .modifiermultdesc {

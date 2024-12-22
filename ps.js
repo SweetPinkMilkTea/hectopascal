@@ -1,4 +1,4 @@
-let activeCount = 0; // Variable to track the number of active (toggled on) divs
+let activeCount = 0;
 let MultScore = 100;
 let score = 0
 let timerIsRunning = false
@@ -24,6 +24,35 @@ const mc6 = ['10', '11'];
 const mc7 = ['3', '6'];
 const mod_dict = {'1':"SU",'2':"BL",'3':"PF",'4':"CP",'5':"SA",'6':"AN",'7':"HA",'8':"LO",'9':"DF",'21':"TS",'22':"SD",'10':"SN",'11':"PA",'12':"2P",'13':"3P",'14':"4P",'15':"5P",'16':"6P",'17':"7P",'18':"8P+",'19':" I","41":"D1","42":"D2","43":"D3"}
 const mod_full = {"SU":"Sensory Underload","BL":"Bargainless","PF":"Perfect","CP":"Cleithrophobia-phobia","SA":"Safety Averse","AN":"Anchored","HA":"Hyperactive","LO":"Lock-On","DF":"Deafened","TS":"Thrillseeker","SD":"Scared of the Dark","SN":"Safety Net","PA":"Premium Assistance","2P":"Friendship-Power","3P":"Friendship-Power","4P":"Group of Sweats","5P":"Group of Sweats","6P":"Group of Sweats","7P":"Group of Sweats","8P+":"This one sucks, doesn't it?"," I":"...what?","D1":"Data-Driven","D2":"Data-Driven","D3":"Data-Driven"}
+
+// Mod ID to File mapping
+const idToFilenameMap = {
+  1: "res/LightsOut.png",
+  2: "res/NothingAllowed.png",
+  3: "res/perfect.png",
+  4: "res/NoHiding.png",
+  5: "res/NoSafety.png",
+  6: "res/Flashed.png",
+  7: "res/Hyperactive.png",
+  8: "res/Target.png",
+  9: "res/Silence.png",
+  10: "res/SafetyNet.png",
+  11: "res/ChillOut.png",
+  12: "res/Two",
+  13: "res/Three",
+  14: "res/Four",
+  15: "res/Five",
+  16: "res/Six",
+  17: "res/Seven",
+  18: "res/HighMult.png",
+  19: "res/Incomplete.png",
+  21: "res/Spot.png",
+  22: "res/LightUp.png",
+  41: "res/CurrencyT1.png",
+  42: "res/CurrencyT2.png",
+  43: "res/CurrencyT3.png",
+  999: "res/Inf.png"
+};
 
 // SFX
 const sfx_hover = new Audio('sfx/Hover.wav');
@@ -70,8 +99,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const placeholder = document.querySelector('.nomods');
     let roomcalib = document.querySelector('#roomset');
     let timecalib = document.querySelector('#timeset');
+    let savebutton = document.querySelector('.commit_to_save');
+    let deletionbutton = document.querySelector('.SaveSlotDeletion');
     MultScore = 100;
     updateActivatedMods();
+    loadSavedData();
 
     // Function to update the activated Mods inside of the Visualizer
     function updateActivatedMods() {
@@ -87,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (activeMods.length === 0) {
         document.getElementById("modcomptext").innerHTML = "No Mod";
         if (!EndlessIsActive) {
-          ActiveMods.innerHTML = `<span class="nomods"><img src="mods/NoMod.png" class="modiconclone toggled-on"></span>`;
+          ActiveMods.innerHTML = `<span class="nomods"><img src="res/NoMod.png" class="modiconclone toggled-on"></span>`;
         }
       } else {
         if (activeMods.length === 1) {
@@ -140,8 +172,9 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       if (EndlessIsActive) {
         EndlessNode = document.querySelectorAll('.modicon')[0].cloneNode()
-        EndlessNode.src = "mods/Inf.png"
+        EndlessNode.src = "res/Inf.png"
         EndlessNode.setAttribute("data-id", "999")
+        EndlessNode.setAttribute("data-active", "true")
         EndlessNode.classList.remove('modicon');
         EndlessNode.classList.add('modiconclone');
         EndlessNode.classList.add('toggled-on');
@@ -340,7 +373,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let s = Math.floor((count /  1000)) % 60;
         let m = Math.floor((count / 60000));
 
-        document.getElementById('TimeDisplay').innerHTML = m.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + s.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + "." + ms.toLocaleString('en-US', {minimumIntegerDigits: 3, useGrouping:false});
+        document.getElementById('timedisplay').innerHTML = m.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + s.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + "." + ms.toLocaleString('en-US', {minimumIntegerDigits: 3, useGrouping:false});
         if (LowPerformance) {
           setTimeout(stopWatchUpdate, 500);
         } else {
@@ -357,6 +390,26 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         return
       }
+    }
+
+    // Loading saved run, if available.
+    function loadSavedData() {
+        const savedRun = JSON.parse(localStorage.getItem("savedRun"));
+        if (savedRun) {
+            document.getElementById("scoredisplay_save").innerHTML = savedRun.score.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+            document.getElementById("capturedate_save").innerHTML = savedRun.savedate;
+            const modContainer = document.getElementById("saved_mods");
+            modContainer.innerHTML = "";
+            savedRun.dataIds.forEach(id => {
+                const imgElement = document.createElement("img");
+                imgElement.src = idToFilenameMap[id];
+                modContainer.appendChild(imgElement);
+            });
+          } else {
+            document.getElementById("scoredisplay_save").innerHTML = '-,---,---';
+            document.getElementById("capturedate_save").innerHTML = 'Click the "Save this run" Button above to create a save here.';
+            document.getElementById("saved_mods").innerHTML = "";
+        }
     }
 
     startB.addEventListener('click', function () {
@@ -394,7 +447,7 @@ document.addEventListener('DOMContentLoaded', function () {
       let s = Math.floor((count /  1000)) % 60;
       let m = Math.floor((count / 60000));
 
-      document.getElementById('TimeDisplay').innerHTML = m.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + s.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + "." + ms.toLocaleString('en-US', {minimumIntegerDigits: 3, useGrouping:false});
+      document.getElementById('timedisplay').innerHTML = m.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + s.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + "." + ms.toLocaleString('en-US', {minimumIntegerDigits: 3, useGrouping:false});
       document.getElementById('swstop').innerHTML = "Retime at<br>this point"
       
       setScore()
@@ -409,7 +462,7 @@ document.addEventListener('DOMContentLoaded', function () {
         count = 0
         elapsedTime = 0
         document.getElementById('swstop').innerHTML = `<span class="modsubtext">Stop</span>`
-        document.getElementById('TimeDisplay').innerHTML = "--:--.---";
+        document.getElementById('timedisplay').innerHTML = "--:--.---";
         document.getElementById('scoredisplay').innerHTML = "-,---,---";
         document.getElementById('swstart').innerHTML = "Start";
         document.getElementById("swstart").style.display="inline"
@@ -421,14 +474,23 @@ document.addEventListener('DOMContentLoaded', function () {
         const sfx_button_1 = new Audio("sfx/Button1.wav");
         sfx_button_1.volume = 0.8;
         sfx_button_1.play();
-      dialog_time.close();
+        dialog_time.classList.remove('visible');
+        dialog_time.classList.add('hidden');
+        setTimeout(() => {
+          dialog_time.close();
+          
+        }, 500); // Match the duration of the transition
     })
 
     dialog_cancelBtn_r.addEventListener('click', () => {
         const sfx_button_1 = new Audio("sfx/Button1.wav");
         sfx_button_1.volume = 0.8;
         sfx_button_1.play();
-      dialog_room.close();
+        dialog_room.classList.remove('visible');
+        dialog_room.classList.add('hidden');
+        setTimeout(() => {
+          dialog_room.close();
+        }, 500); // Match the duration of the transition
     })
 
     timecalib.addEventListener('click', function () {
@@ -439,6 +501,8 @@ document.addEventListener('DOMContentLoaded', function () {
         sfx_button_1.volume = 0.8;
         sfx_button_1.play();
         dialog_time.showModal();
+        dialog_time.classList.remove('hidden');
+        dialog_time.classList.add('visible');
     });
     
     form_t.addEventListener('submit', (event) => {
@@ -470,12 +534,17 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById("swstop").style.display="none";
         document.getElementById('swreset').innerHTML = `Reset`;
 
-        document.getElementById('TimeDisplay').innerHTML = m.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + s.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + "." + ms.toLocaleString('en-US', {minimumIntegerDigits: 3, useGrouping:false});
+        document.getElementById('timedisplay').innerHTML = m.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + ":" + s.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + "." + ms.toLocaleString('en-US', {minimumIntegerDigits: 3, useGrouping:false});
 
         setScore();
 
       // Close the dialog after submission
-      dialog_time.close();
+      dialog_time.classList.remove('visible');
+      dialog_time.classList.add('hidden');
+      setTimeout(() => {
+        dialog_time.close();
+        
+      }, 500); // Match the duration of the transition
     },)
 
     roomcalib.addEventListener('click', (event) => {
@@ -485,6 +554,8 @@ document.addEventListener('DOMContentLoaded', function () {
       sfx_button_1.volume = 0.8;
       sfx_button_1.play();
       dialog_room.showModal();
+      dialog_room.classList.remove('hidden');
+      dialog_room.classList.add('visible');
     });
     
     form_r.addEventListener('submit', (event) => {
@@ -509,7 +580,12 @@ document.addEventListener('DOMContentLoaded', function () {
       setScore();
 
     // Close the dialog after submission
-    dialog_room.close();
+      dialog_room.classList.remove('visible');
+      dialog_room.classList.add('hidden');
+      setTimeout(() => {
+        dialog_room.close();
+        
+      }, 500); // Match the duration of the transition
   });
 
     lowPerfB.addEventListener('click', function () {
@@ -524,6 +600,28 @@ document.addEventListener('DOMContentLoaded', function () {
           document.body.style.animation = "BGAnimation 60s ease infinite";
           document.getElementById('swlow').innerHTML = "Enable Low<br>Performance";
         }
+    });
+
+    savebutton.addEventListener('click', function () {
+        const sfx_button_1 = new Audio("sfx/Button1.wav");
+        sfx_button_1.volume = 0.8;
+        sfx_button_1.play();
+        if (count === 0) {
+          return
+        }
+        const savedate = new Date().toLocaleDateString();
+        const activeMods = document.querySelectorAll('.modicon[data-active="true"]');
+        const dataIds = Array.from(activeMods).map(element => element.getAttribute('data-id'));
+        if (EndlessIsActive) {
+          dataIds.push(999)
+        }
+        localStorage.setItem("savedRun", JSON.stringify({score, dataIds, savedate}));
+        loadSavedData();
+    });
+
+    deletionbutton.addEventListener('click', function () {
+        localStorage.removeItem("savedRun");
+        loadSavedData()
     });
 
     document.querySelector('.switchchoice').addEventListener('click', (event) => {
