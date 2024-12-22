@@ -228,7 +228,7 @@ input:checked + .slider:before {
 .editvalue > img {
     height: 20px;
     opacity: 0.3;
-    transition: opacity 0.3 ease;
+    transition: opacity 0.3s ease;
 }
 .editvalue > img:hover {
     height: 20px;
@@ -275,7 +275,7 @@ input:checked + .slider:before {
     position: relative;
     margin-top: 10px;
 }
-.SaveSlotMarker {
+.SaveSlotMarker, .SaveSlotDeletion {
     position: absolute;
     display: flex;
     height: 100%;
@@ -283,8 +283,20 @@ input:checked + .slider:before {
     justify-content: center;
     align-items: center;
 }
+.SaveSlotDeletion {
+    right: 0;
+    cursor: pointer;
+}
 .SaveSlotMarker > img {
     height: 40%;
+}
+.SaveSlotDeletion > img {
+    height: 30%;
+    opacity: 25%;
+    transition: opacity 0.2s ease;
+}
+.SaveSlotDeletion > img:hover {
+    opacity: 0.6;
 }
 .save_body {
     display: flex;

@@ -100,6 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let roomcalib = document.querySelector('#roomset');
     let timecalib = document.querySelector('#timeset');
     let savebutton = document.querySelector('.commit_to_save');
+    let deletionbutton = document.querySelector('.SaveSlotDeletion');
     MultScore = 100;
     updateActivatedMods();
     loadSavedData();
@@ -608,6 +609,11 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         localStorage.setItem("savedRun", JSON.stringify({score, dataIds, savedate}));
         loadSavedData();
+    });
+
+    deletionbutton.addEventListener('click', function () {
+        localStorage.removeItem("savedRun");
+        loadSavedData()
     });
 
     document.querySelector('.switchchoice').addEventListener('click', (event) => {
