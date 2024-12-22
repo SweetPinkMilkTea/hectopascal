@@ -399,6 +399,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById("scoredisplay_save").innerHTML = savedRun.score.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
             document.getElementById("capturedate_save").innerHTML = savedRun.savedate;
             const modContainer = document.getElementById("saved_mods");
+            modContainer.innerHTML = "";
             savedRun.dataIds.forEach(id => {
                 const imgElement = document.createElement("img");
                 imgElement.src = idToFilenameMap[id];
