@@ -601,6 +601,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const sfx_button_1 = new Audio("sfx/Button1.wav");
         sfx_button_1.volume = 0.8;
         sfx_button_1.play();
+        if (count === 0) {
+          return
+        }
         const savedate = new Date().toLocaleDateString();
         const activeMods = document.querySelectorAll('.modicon[data-active="true"]');
         const dataIds = Array.from(activeMods).map(element => element.getAttribute('data-id'));
