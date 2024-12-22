@@ -7,7 +7,9 @@
     --dark_bg: #000a24;
     --bright_bg: #002652;
 }  
-
+*::selection {
+    background: #ffffff2f
+}
 body {
     background: linear-gradient(315deg, var(--dark_bg),var(--dark_bg), var(--bright_bg), #000000,var(--dark_bg), var(--dark_bg));
     background-size: 600% 600%;
@@ -481,7 +483,6 @@ input:checked + .slider:before {
     clip-path: polygon(10% 0, 100% 0%, 90% 100%, 0% 100%);
     text-align: center;
     height: 50px;
-    margin: 25px;
     padding: 0px;
 }
 .modifiermultdesc {
