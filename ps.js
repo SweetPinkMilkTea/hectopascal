@@ -396,6 +396,8 @@ document.addEventListener('DOMContentLoaded', function () {
     function loadSavedData() {
         const savedRun = JSON.parse(localStorage.getItem("savedRun"));
         if (savedRun) {
+            document.getElementById("title_save").innerHTML = savedRun.saveTitle;
+            document.getElementById("title_save").style.display = "inline";
             document.getElementById("scoredisplay_save").innerHTML = savedRun.score.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
             document.getElementById("capturedate_save").innerHTML = savedRun.savedate;
             const modContainer = document.getElementById("saved_mods");
@@ -406,6 +408,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 modContainer.appendChild(imgElement);
             });
           } else {
+            document.getElementById("title_save").style.display = "none";
             document.getElementById("scoredisplay_save").innerHTML = '-,---,---';
             document.getElementById("capturedate_save").innerHTML = 'Click the "Save this run" Button above to create a save here.';
             document.getElementById("saved_mods").innerHTML = "";
@@ -614,8 +617,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const dataIds = Array.from(activeMods).map(element => element.getAttribute('data-id'));
         if (EndlessIsActive) {
           dataIds.push(999)
-        }
-        localStorage.setItem("savedRun", JSON.stringify({score, dataIds, savedate}));
+        };
+        const saveTitle = document.getElementsByClassName("mainheader")[0].value;
+        localStorage.setItem("savedRun", JSON.stringify({score, dataIds, savedate, saveTitle}));
         loadSavedData();
     });
 
