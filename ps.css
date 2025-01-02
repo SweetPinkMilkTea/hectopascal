@@ -290,10 +290,10 @@ input:checked + .slider:before {
     cursor: pointer;
 }
 .SaveSlotMarker > img {
-    height: 40%;
+    height: 30px;
 }
 .SaveSlotDeletion > img {
-    height: 30%;
+    height: 30px;
     opacity: 25%;
     transition: opacity 0.2s ease;
 }

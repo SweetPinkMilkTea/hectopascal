@@ -624,6 +624,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     deletionbutton.addEventListener('click', function () {
+        const sfx_button_1 = new Audio("sfx/Button1.wav");
+        sfx_button_1.volume = 0.8;
+        sfx_button_1.play();
         localStorage.removeItem("savedRun");
         loadSavedData()
     });
