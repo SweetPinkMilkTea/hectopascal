@@ -673,10 +673,10 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('.heading-hidden').addEventListener('click', (event) => {
       if (!HeaderHidden) {
         document.querySelector(".heading").style.height = "0px";
-        document.querySelector('.heading-hidden').style.rotation = "180deg";
+        document.querySelector('.heading-hidden').style.rotate = "180deg";
       } else {
         document.querySelector(".heading").style.height = "180px";
-        document.querySelector('.heading-hidden').style.rotation = "0deg";
+        document.querySelector('.heading-hidden').style.rotate = "0deg";
       }
       HeaderHidden = !HeaderHidden
     });

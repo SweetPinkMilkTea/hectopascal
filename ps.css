@@ -195,7 +195,7 @@ input:checked + .slider:before {
 }
 
 #ft_text {
-    font-size: small;
+    font-size: 2vw;
     margin-top: 20px;
 }
 .subdiv{
@@ -329,6 +329,7 @@ input:checked + .slider:before {
 }
 .cont > p, h3 {
     text-align: center;
+    margin-bottom: 0;
 }
 .activated-image {
     margin-right: 10px;
