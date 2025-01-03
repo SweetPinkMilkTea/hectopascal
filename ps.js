@@ -38,12 +38,12 @@ const idToFilenameMap = {
   9: "res/Silence.png",
   10: "res/SafetyNet.png",
   11: "res/ChillOut.png",
-  12: "res/Two",
-  13: "res/Three",
-  14: "res/Four",
-  15: "res/Five",
-  16: "res/Six",
-  17: "res/Seven",
+  12: "res/Two.png",
+  13: "res/Three.png",
+  14: "res/Four.png",
+  15: "res/Five.png",
+  16: "res/Six.png",
+  17: "res/Seven.png",
   18: "res/HighMult.png",
   19: "res/Incomplete.png",
   21: "res/Spot.png",
@@ -102,6 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let savebutton = document.querySelector('.commit_to_save');
     let deletionbutton = document.querySelector('.SaveSlotDeletion');
     MultScore = 100;
+    displayIncompatibilities();
     updateActivatedMods();
     loadSavedData();
 
@@ -333,7 +334,41 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Recalculate the total score after resetting all images
       calculateTotalScoreMultiplier();
-    }
+    };
+
+    // Create display per mod to inform about Incompatibilities
+    function displayIncompatibilities() {
+        const targetDivs = document.querySelectorAll('#modrow > div > div.tooltip');
+        targetDivs.forEach(targetDiv => {
+            const img = targetDiv.querySelector('img[data-id][data-incompatible]');
+            if (img) {
+                const incompatibleIds = JSON.parse(img.getAttribute('data-incompatible'));
+                if (Array.isArray(incompatibleIds) && incompatibleIds.length > 0) {
+                    const tooltipDiv = targetDiv.querySelector('div');
+                    const incompatibleContainer = document.createElement('div');
+                    incompatibleContainer.style.display = 'flex';
+                    incompatibleContainer.style.position = 'relative';
+                    incompatibleContainer.style.justifyContent = "center";
+                    incompatibleContainer.style.alignItems = "center";
+                    incompatibleContainer.style.border = '1px dashed #ffffff55';
+                    incompatibleContainer.style.borderRadius = "5px";
+                    incompatibleContainer.style.padding = "2px";
+                    incompatibleContainer.style.marginTop = "10px";
+                    incompatibleContainer.style.width = `${10+incompatibleIds.length*33.7667}px`;
+                    incompatibleContainer.innerHTML = "<img src='res/Incompatible.png' style='height: 20px; position: absolute; left: -27px'>"
+                    incompatibleIds.forEach(id => {
+                        const filename = idToFilenameMap[id];
+                        const newImg = document.createElement('img');
+                        newImg.src = filename;
+                        newImg.style.filter = 'grayscale(67%)';
+                        newImg.style.height = '25px';
+                        incompatibleContainer.appendChild(newImg);
+                    });
+                    tooltipDiv.appendChild(incompatibleContainer);
+                };
+            };
+        });
+    };
 
     // Set up event listeners for the mods
     document.querySelectorAll('.modicon').forEach(
