@@ -195,7 +195,7 @@ input:checked + .slider:before {
 }
 
 #ft_text {
-    font-size: 2vw;
+    font-size: 1em;
     margin-top: 20px;
 }
 .subdiv{
@@ -221,7 +221,7 @@ input:checked + .slider:before {
     display: inline-block;
     margin: 0px;
     height: 40px;
-    font-size: 30px;
+    font-size: 2em;
 }
 .editvalue {
     display: inline;
@@ -244,7 +244,7 @@ input:checked + .slider:before {
     border: 1px solid #00000000;
     border-bottom: 2px dotted #ffffff80;
     text-align: center;
-    font-size: x-large;
+    font-size: 1.7em;
     font-weight: bold;
     margin: 10px 5% 10px 5%;
 }
@@ -323,7 +323,7 @@ input:checked + .slider:before {
     height: 25px;
 }
 #capturedate_save {
-    font-size: 15px;
+    font-size: 0.9em;
     color: gray;
     margin-top: 0;
 }
@@ -343,7 +343,7 @@ input:checked + .slider:before {
     margin-bottom: 10px;
     align-items: center;
     justify-content: center;
-    font-size: smaller;
+    font-size: 0.9em;
 }
 #modcomposition > * {
     margin: 0px;
@@ -371,7 +371,7 @@ input:checked + .slider:before {
     background-color: #ffffffac;
 }
 .commit_to_save > span {
-    font-size: 12px;
+    font-size: 0.7em;
 }
 .displaymods > * {
     margin: 0px 7px 0px 7px;
